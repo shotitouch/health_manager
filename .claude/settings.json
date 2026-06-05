@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install*)",
+      "Bash(npm run dev*)",
+      "Bash(npm run build*)",
+      "Bash(npm run start*)",
+      "Bash(npm run preview*)",
+      "Bash(npm test*)",
+      "Bash(npx prettier*)",
+      "Bash(node *)",
+      "Bash(curl *)",
+      "Bash(git status*)",
+      "Bash(git log*)",
+      "Bash(git diff*)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx prettier --write \"${CLAUDE_TOOL_INPUT_file_path}\" --log-level silent 2>/dev/null || true"
+          }
+        ]
+      }
+    ]
+  }
+}

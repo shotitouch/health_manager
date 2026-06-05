@@ -1,0 +1,717 @@
+{
+  "numTotalTestSuites": 24,
+  "numPassedTestSuites": 24,
+  "numFailedTestSuites": 0,
+  "numPendingTestSuites": 0,
+  "numTotalTests": 65,
+  "numPassedTests": 65,
+  "numFailedTests": 0,
+  "numPendingTests": 0,
+  "numTodoTests": 0,
+  "snapshot": {
+    "added": 0,
+    "failure": false,
+    "filesAdded": 0,
+    "filesRemoved": 0,
+    "filesRemovedList": [],
+    "filesUnmatched": 0,
+    "filesUpdated": 0,
+    "matched": 0,
+    "total": 0,
+    "unchecked": 0,
+    "uncheckedKeysByFile": [],
+    "unmatched": 0,
+    "updated": 0,
+    "didUpdate": false
+  },
+  "startTime": 1780603300913,
+  "success": true,
+  "testResults": [
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": ["errorHandler"],
+          "fullName": "errorHandler uses AppError.status as HTTP status code",
+          "status": "passed",
+          "title": "uses AppError.status as HTTP status code",
+          "duration": 1.6888999999999896,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["errorHandler"],
+          "fullName": "errorHandler defaults to 500 when no status is set",
+          "status": "passed",
+          "title": "defaults to 500 when no status is set",
+          "duration": 0.23629999999999995,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["errorHandler"],
+          "fullName": "errorHandler includes the error message in the response body",
+          "status": "passed",
+          "title": "includes the error message in the response body",
+          "duration": 0.8132000000000232,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["errorHandler"],
+          "fullName": "errorHandler sets data to null in the response body",
+          "status": "passed",
+          "title": "sets data to null in the response body",
+          "duration": 0.27429999999998245,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["errorHandler"],
+          "fullName": "errorHandler includes stack trace in error field when NODE_ENV=development",
+          "status": "passed",
+          "title": "includes stack trace in error field when NODE_ENV=development",
+          "duration": 1.6729999999999734,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["errorHandler"],
+          "fullName": "errorHandler sets error field to null when NODE_ENV=production",
+          "status": "passed",
+          "title": "sets error field to null when NODE_ENV=production",
+          "duration": 0.1897000000000162,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["errorHandler"],
+          "fullName": "errorHandler sets error field to null when NODE_ENV is unset",
+          "status": "passed",
+          "title": "sets error field to null when NODE_ENV is unset",
+          "duration": 0.11490000000000578,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        }
+      ],
+      "startTime": 1780603301101,
+      "endTime": 1780603301106.1897,
+      "status": "passed",
+      "message": "",
+      "name": "C:/Users/Nitiw/Projects/health_manager/backend/src/shared/__tests__/errorHandler.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": ["POST /api/v1/agent", "valid requests"],
+          "fullName": "POST /api/v1/agent valid requests returns 200 with data shape on valid body",
+          "status": "passed",
+          "title": "returns 200 with data shape on valid body",
+          "duration": 19.697600000000023,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/agent", "valid requests"],
+          "fullName": "POST /api/v1/agent valid requests accepts string content",
+          "status": "passed",
+          "title": "accepts string content",
+          "duration": 2.486599999999953,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/agent", "valid requests"],
+          "fullName": "POST /api/v1/agent valid requests accepts text content block",
+          "status": "passed",
+          "title": "accepts text content block",
+          "duration": 2.35469999999998,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/agent", "valid requests"],
+          "fullName": "POST /api/v1/agent valid requests accepts valid base64 image content block",
+          "status": "passed",
+          "title": "accepts valid base64 image content block",
+          "duration": 2.6965000000000146,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/agent", "valid requests"],
+          "fullName": "POST /api/v1/agent valid requests accepts valid url image content block",
+          "status": "passed",
+          "title": "accepts valid url image content block",
+          "duration": 2.185700000000054,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/agent", "valid requests"],
+          "fullName": "POST /api/v1/agent valid requests calls runAgentLoop with parsed messages and userId",
+          "status": "passed",
+          "title": "calls runAgentLoop with parsed messages and userId",
+          "duration": 2.4372000000000185,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/agent", "validation failures"],
+          "fullName": "POST /api/v1/agent validation failures returns 400 when userId is missing",
+          "status": "passed",
+          "title": "returns 400 when userId is missing",
+          "duration": 2.207499999999982,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/agent", "validation failures"],
+          "fullName": "POST /api/v1/agent validation failures returns 400 when userId is empty string",
+          "status": "passed",
+          "title": "returns 400 when userId is empty string",
+          "duration": 1.719600000000014,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/agent", "validation failures"],
+          "fullName": "POST /api/v1/agent validation failures returns 400 when messages is empty array",
+          "status": "passed",
+          "title": "returns 400 when messages is empty array",
+          "duration": 1.8892999999999915,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/agent", "validation failures"],
+          "fullName": "POST /api/v1/agent validation failures returns 400 when messages is missing",
+          "status": "passed",
+          "title": "returns 400 when messages is missing",
+          "duration": 1.8950999999999567,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/agent", "validation failures"],
+          "fullName": "POST /api/v1/agent validation failures returns 400 when role is invalid",
+          "status": "passed",
+          "title": "returns 400 when role is invalid",
+          "duration": 1.5869000000000142,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/agent", "validation failures"],
+          "fullName": "POST /api/v1/agent validation failures returns 400 when base64 image source is missing data field",
+          "status": "passed",
+          "title": "returns 400 when base64 image source is missing data field",
+          "duration": 2.1797000000000253,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/agent", "validation failures"],
+          "fullName": "POST /api/v1/agent validation failures returns 400 when url image source has invalid url",
+          "status": "passed",
+          "title": "returns 400 when url image source has invalid url",
+          "duration": 1.540900000000022,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/agent", "validation failures"],
+          "fullName": "POST /api/v1/agent validation failures returns 400 when content block has unknown type",
+          "status": "passed",
+          "title": "returns 400 when content block has unknown type",
+          "duration": 1.6134000000000128,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/agent", "service errors"],
+          "fullName": "POST /api/v1/agent service errors returns 500 when service throws an untyped error",
+          "status": "passed",
+          "title": "returns 500 when service throws an untyped error",
+          "duration": 1.7782000000000266,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/agent", "service errors"],
+          "fullName": "POST /api/v1/agent service errors propagates AppError status from service",
+          "status": "passed",
+          "title": "propagates AppError status from service",
+          "duration": 1.5711000000000013,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        }
+      ],
+      "startTime": 1780603301254,
+      "endTime": 1780603301304.571,
+      "status": "passed",
+      "message": "",
+      "name": "C:/Users/Nitiw/Projects/health_manager/backend/src/features/agent/__tests__/agent.controller.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": ["runAgentLoop", "routing — skipWorker=true"],
+          "fullName": "runAgentLoop routing — skipWorker=true makes exactly 2 SDK calls: router then presenter",
+          "status": "passed",
+          "title": "makes exactly 2 SDK calls: router then presenter",
+          "duration": 2.143100000000004,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["runAgentLoop", "routing — skipWorker=true"],
+          "fullName": "runAgentLoop routing — skipWorker=true returns the FE tool call from the presenter",
+          "status": "passed",
+          "title": "returns the FE tool call from the presenter",
+          "duration": 1.0682999999999936,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["runAgentLoop", "routing — skipWorker=true"],
+          "fullName": "runAgentLoop routing — skipWorker=true returns a non-empty messages array",
+          "status": "passed",
+          "title": "returns a non-empty messages array",
+          "duration": 0.16450000000000387,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["runAgentLoop", "routing — skipWorker=false"],
+          "fullName": "runAgentLoop routing — skipWorker=false makes exactly 3 SDK calls: router, worker, presenter",
+          "status": "passed",
+          "title": "makes exactly 3 SDK calls: router, worker, presenter",
+          "duration": 0.24580000000000268,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["runAgentLoop", "routing — skipWorker=false"],
+          "fullName": "runAgentLoop routing — skipWorker=false returns the correct FE tool from presenter",
+          "status": "passed",
+          "title": "returns the correct FE tool from presenter",
+          "duration": 0.22299999999998477,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["runAgentLoop", "worker loop cap"],
+          "fullName": "runAgentLoop worker loop cap throws after 10 iterations with \"exceeded maximum iterations\"",
+          "status": "passed",
+          "title": "throws after 10 iterations with \"exceeded maximum iterations\"",
+          "duration": 1.095799999999997,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["runAgentLoop", "worker loop cap"],
+          "fullName": "runAgentLoop worker loop cap makes 11 total SDK calls when loop cap triggers (1 router + 10 worker)",
+          "status": "passed",
+          "title": "makes 11 total SDK calls when loop cap triggers (1 router + 10 worker)",
+          "duration": 0.2598999999999876,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["runAgentLoop", "MCP execution — stub DB tools"],
+          "fullName": "runAgentLoop MCP execution — stub DB tools includes stub tool_result in messages passed to subsequent worker call",
+          "status": "passed",
+          "title": "includes stub tool_result in messages passed to subsequent worker call",
+          "duration": 0.21819999999999595,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["runAgentLoop", "MCP execution — USDA"],
+          "fullName": "runAgentLoop MCP execution — USDA calls fetch with USDA API URL when API key is set",
+          "status": "passed",
+          "title": "calls fetch with USDA API URL when API key is set",
+          "duration": 0.6298999999999921,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["runAgentLoop", "MCP execution — USDA"],
+          "fullName": "runAgentLoop MCP execution — USDA returns USDA_API_KEY-not-set note in tool_result when key is absent",
+          "status": "passed",
+          "title": "returns USDA_API_KEY-not-set note in tool_result when key is absent",
+          "duration": 0.2324000000000126,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["runAgentLoop", "MCP execution — USDA"],
+          "fullName": "runAgentLoop MCP execution — USDA sanitizes non-ASCII characters from USDA food names",
+          "status": "passed",
+          "title": "sanitizes non-ASCII characters from USDA food names",
+          "duration": 0.30349999999998545,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["runAgentLoop", "presenter errors"],
+          "fullName": "runAgentLoop presenter errors throws when presenter returns no tool_use blocks",
+          "status": "passed",
+          "title": "throws when presenter returns no tool_use blocks",
+          "duration": 0.19110000000000582,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        }
+      ],
+      "startTime": 1780603301139,
+      "endTime": 1780603301146.1912,
+      "status": "passed",
+      "message": "",
+      "name": "C:/Users/Nitiw/Projects/health_manager/backend/src/features/agent/__tests__/agent.service.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": ["tool-registry", "FE_TOOL_NAMES"],
+          "fullName": "tool-registry FE_TOOL_NAMES matches FE_TOOLS array exactly",
+          "status": "passed",
+          "title": "matches FE_TOOLS array exactly",
+          "duration": 1.1152000000000157,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["tool-registry", "FE_TOOL_NAMES"],
+          "fullName": "tool-registry FE_TOOL_NAMES contains the same count as FE_TOOLS",
+          "status": "passed",
+          "title": "contains the same count as FE_TOOLS",
+          "duration": 0.15089999999997872,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["tool-registry", "MCP_TOOL_NAMES"],
+          "fullName": "tool-registry MCP_TOOL_NAMES matches MCP_TOOLS array exactly",
+          "status": "passed",
+          "title": "matches MCP_TOOLS array exactly",
+          "duration": 0.12250000000000227,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["tool-registry", "MCP_TOOL_NAMES"],
+          "fullName": "tool-registry MCP_TOOL_NAMES contains the same count as MCP_TOOLS",
+          "status": "passed",
+          "title": "contains the same count as MCP_TOOLS",
+          "duration": 0.0776000000000181,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["tool-registry", "namespace collision"],
+          "fullName": "tool-registry namespace collision FE and MCP tool names are disjoint",
+          "status": "passed",
+          "title": "FE and MCP tool names are disjoint",
+          "duration": 0.4398999999999944,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["tool-registry", "tool shape"],
+          "fullName": "tool-registry tool shape 'show_dashboard' has required fields",
+          "status": "passed",
+          "title": "'show_dashboard' has required fields",
+          "duration": 0.19259999999999877,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["tool-registry", "tool shape"],
+          "fullName": "tool-registry tool shape 'show_profile_form' has required fields",
+          "status": "passed",
+          "title": "'show_profile_form' has required fields",
+          "duration": 0.12980000000001723,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["tool-registry", "tool shape"],
+          "fullName": "tool-registry tool shape 'show_food_input' has required fields",
+          "status": "passed",
+          "title": "'show_food_input' has required fields",
+          "duration": 0.2196999999999889,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["tool-registry", "tool shape"],
+          "fullName": "tool-registry tool shape 'show_food_log' has required fields",
+          "status": "passed",
+          "title": "'show_food_log' has required fields",
+          "duration": 0.14750000000000796,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["tool-registry", "tool shape"],
+          "fullName": "tool-registry tool shape 'show_exercise_input' has required fields",
+          "status": "passed",
+          "title": "'show_exercise_input' has required fields",
+          "duration": 0.15639999999999077,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["tool-registry", "tool shape"],
+          "fullName": "tool-registry tool shape 'show_exercise_log' has required fields",
+          "status": "passed",
+          "title": "'show_exercise_log' has required fields",
+          "duration": 0.08559999999999945,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["tool-registry", "tool shape"],
+          "fullName": "tool-registry tool shape 'show_health_summary' has required fields",
+          "status": "passed",
+          "title": "'show_health_summary' has required fields",
+          "duration": 0.06519999999997594,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["tool-registry", "tool shape"],
+          "fullName": "tool-registry tool shape 'ask_clarification' has required fields",
+          "status": "passed",
+          "title": "'ask_clarification' has required fields",
+          "duration": 0.06400000000002137,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["tool-registry", "tool shape"],
+          "fullName": "tool-registry tool shape 'display_message' has required fields",
+          "status": "passed",
+          "title": "'display_message' has required fields",
+          "duration": 0.06749999999999545,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["tool-registry", "tool shape"],
+          "fullName": "tool-registry tool shape 'search_food_library' has required fields",
+          "status": "passed",
+          "title": "'search_food_library' has required fields",
+          "duration": 0.07099999999999795,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["tool-registry", "tool shape"],
+          "fullName": "tool-registry tool shape 'search_nutrition_usda' has required fields",
+          "status": "passed",
+          "title": "'search_nutrition_usda' has required fields",
+          "duration": 0.059899999999998954,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["tool-registry", "tool shape"],
+          "fullName": "tool-registry tool shape 'search_nutrition_thai' has required fields",
+          "status": "passed",
+          "title": "'search_nutrition_thai' has required fields",
+          "duration": 0.05869999999998754,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["tool-registry", "tool shape"],
+          "fullName": "tool-registry tool shape 'web_search' has required fields",
+          "status": "passed",
+          "title": "'web_search' has required fields",
+          "duration": 0.06390000000001805,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["tool-registry", "tool shape"],
+          "fullName": "tool-registry tool shape 'get_user_log' has required fields",
+          "status": "passed",
+          "title": "'get_user_log' has required fields",
+          "duration": 0.07890000000000441,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["tool-registry", "tool shape"],
+          "fullName": "tool-registry tool shape 'get_user_profile' has required fields",
+          "status": "passed",
+          "title": "'get_user_profile' has required fields",
+          "duration": 0.08100000000001728,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["tool-registry", "tool shape"],
+          "fullName": "tool-registry tool shape 'save_food_entry' has required fields",
+          "status": "passed",
+          "title": "'save_food_entry' has required fields",
+          "duration": 0.061800000000005184,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["tool-registry", "tool shape"],
+          "fullName": "tool-registry tool shape 'save_exercise_entry' has required fields",
+          "status": "passed",
+          "title": "'save_exercise_entry' has required fields",
+          "duration": 0.0554000000000201,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["tool-registry", "tool shape"],
+          "fullName": "tool-registry tool shape 'save_to_food_library' has required fields",
+          "status": "passed",
+          "title": "'save_to_food_library' has required fields",
+          "duration": 0.0689999999999884,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["tool-registry", "tool shape"],
+          "fullName": "tool-registry tool shape 'save_to_exercise_library' has required fields",
+          "status": "passed",
+          "title": "'save_to_exercise_library' has required fields",
+          "duration": 0.05870000000001596,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["tool-registry", "tool shape"],
+          "fullName": "tool-registry tool shape 'search_exercise_library' has required fields",
+          "status": "passed",
+          "title": "'search_exercise_library' has required fields",
+          "duration": 0.05889999999999418,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["tool-registry", "show_food_input"],
+          "fullName": "tool-registry show_food_input exists in FE_TOOLS",
+          "status": "passed",
+          "title": "exists in FE_TOOLS",
+          "duration": 0.05509999999998172,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["tool-registry", "show_food_input"],
+          "fullName": "tool-registry show_food_input prefill is not a top-level required field",
+          "status": "passed",
+          "title": "prefill is not a top-level required field",
+          "duration": 0.2576000000000249,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["tool-registry", "show_food_input"],
+          "fullName": "tool-registry show_food_input prefill.name and prefill.calories are required within prefill",
+          "status": "passed",
+          "title": "prefill.name and prefill.calories are required within prefill",
+          "duration": 0.12510000000000332,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["tool-registry", "show_exercise_input"],
+          "fullName": "tool-registry show_exercise_input prefill.name and prefill.calories_burned are required within prefill",
+          "status": "passed",
+          "title": "prefill.name and prefill.calories_burned are required within prefill",
+          "duration": 0.11020000000002028,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["tool-registry", "display_message"],
+          "fullName": "tool-registry display_message message field is required",
+          "status": "passed",
+          "title": "message field is required",
+          "duration": 0.0665000000000191,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        }
+      ],
+      "startTime": 1780603301102,
+      "endTime": 1780603301107.2576,
+      "status": "passed",
+      "message": "",
+      "name": "C:/Users/Nitiw/Projects/health_manager/backend/src/features/agent/__tests__/tool-registry.test.ts"
+    }
+  ]
+}
