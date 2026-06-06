@@ -1,6 +1,7 @@
 import { vi, describe, it, expect, beforeEach } from 'vitest';
 import request from 'supertest';
 import express from 'express';
+import type { ToolUseBlock } from '@anthropic-ai/sdk/resources/messages/messages.js';
 
 vi.mock('../agent.service.js', () => ({
   runAgentLoop: vi.fn(),
@@ -15,7 +16,12 @@ const mockRunAgentLoop = vi.mocked(runAgentLoop);
 const MOCK_RESULT = {
   messages: [{ role: 'user' as const, content: 'hi' }],
   feToolCalls: [
-    { type: 'tool_use' as const, id: 'tu_1', name: 'display_message', input: { message: 'hi' } },
+    {
+      type: 'tool_use' as const,
+      id: 'tu_1',
+      name: 'display_message',
+      input: { message: 'hi' },
+    } as unknown as ToolUseBlock,
   ],
 };
 
