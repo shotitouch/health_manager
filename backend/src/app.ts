@@ -7,6 +7,7 @@ import { logger } from './shared/middleware/logger.js';
 import agentRouter from './features/agent/agent.router.js';
 import authRouter from './features/auth/auth.router.js';
 import profileRouter from './features/profile/profile.router.js';
+import foodRouter from './features/food/food.router.js';
 
 dotenv.config();
 
@@ -29,6 +30,7 @@ app.get('/api/v1/health', (req, res) => {
 app.use('/api/v1', authRouter);
 app.use('/api/v1', profileRouter);
 app.use('/api/v1', agentRouter);
+app.use('/api/v1', foodRouter);
 
 app.use(errorHandler);
 
