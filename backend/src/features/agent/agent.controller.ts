@@ -56,7 +56,6 @@ const AgentRequestSchema = z.object({
       })
     )
     .min(1, 'messages must not be empty'),
-  userId: z.string().min(1, 'userId is required'),
 });
 
 export async function agentHandler(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -75,8 +74,8 @@ export async function agentHandler(req: Request, res: Response, next: NextFuncti
       throw err;
     }
 
-    const { messages, userId } = parsed.data;
-    const result = await runAgentLoop(messages as MessageParam[], userId);
+    const { messages } = parsed.data;
+    const result = await runAgentLoop(messages as MessageParam[], req.userId);
 
     res.json({
       data: { messages: result.messages, feToolCalls: result.feToolCalls },

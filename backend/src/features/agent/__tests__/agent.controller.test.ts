@@ -1,10 +1,19 @@
 import { vi, describe, it, expect, beforeEach } from 'vitest';
 import request from 'supertest';
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import type { ToolUseBlock } from '@anthropic-ai/sdk/resources/messages/messages.js';
+
+const STUB_USER_ID = 'user-123';
 
 vi.mock('../agent.service.js', () => ({
   runAgentLoop: vi.fn(),
+}));
+
+vi.mock('../../../shared/middleware/auth.js', () => ({
+  authMiddleware: (req: Request, _res: Response, next: NextFunction) => {
+    req.userId = STUB_USER_ID;
+    next();
+  },
 }));
 
 import { runAgentLoop } from '../agent.service.js';
@@ -37,7 +46,6 @@ const app = buildApp();
 
 const VALID_BODY = {
   messages: [{ role: 'user', content: 'hello' }],
-  userId: 'user-123',
 };
 
 describe('POST /api/v1/agent', () => {
@@ -61,7 +69,7 @@ describe('POST /api/v1/agent', () => {
     it('accepts string content', async () => {
       const res = await request(app)
         .post('/api/v1/agent')
-        .send({ messages: [{ role: 'user', content: 'hi' }], userId: 'u1' });
+        .send({ messages: [{ role: 'user', content: 'hi' }] });
       expect(res.status).toBe(200);
     });
 
@@ -70,7 +78,6 @@ describe('POST /api/v1/agent', () => {
         .post('/api/v1/agent')
         .send({
           messages: [{ role: 'user', content: [{ type: 'text', text: 'hello' }] }],
-          userId: 'u1',
         });
       expect(res.status).toBe(200);
     });
@@ -90,7 +97,6 @@ describe('POST /api/v1/agent', () => {
               ],
             },
           ],
-          userId: 'u1',
         });
       expect(res.status).toBe(200);
     });
@@ -110,46 +116,31 @@ describe('POST /api/v1/agent', () => {
               ],
             },
           ],
-          userId: 'u1',
         });
       expect(res.status).toBe(200);
     });
 
-    it('calls runAgentLoop with parsed messages and userId', async () => {
+    it('calls runAgentLoop with parsed messages and req.userId', async () => {
       await request(app).post('/api/v1/agent').send(VALID_BODY);
-      expect(mockRunAgentLoop).toHaveBeenCalledWith(VALID_BODY.messages, VALID_BODY.userId);
+      expect(mockRunAgentLoop).toHaveBeenCalledWith(VALID_BODY.messages, STUB_USER_ID);
     });
   });
 
   describe('validation failures', () => {
-    it('returns 400 when userId is missing', async () => {
-      const res = await request(app)
-        .post('/api/v1/agent')
-        .send({ messages: [{ role: 'user', content: 'hi' }] });
-      expect(res.status).toBe(400);
-    });
-
-    it('returns 400 when userId is empty string', async () => {
-      const res = await request(app)
-        .post('/api/v1/agent')
-        .send({ messages: [{ role: 'user', content: 'hi' }], userId: '' });
-      expect(res.status).toBe(400);
-    });
-
     it('returns 400 when messages is empty array', async () => {
-      const res = await request(app).post('/api/v1/agent').send({ messages: [], userId: 'u1' });
+      const res = await request(app).post('/api/v1/agent').send({ messages: [] });
       expect(res.status).toBe(400);
     });
 
     it('returns 400 when messages is missing', async () => {
-      const res = await request(app).post('/api/v1/agent').send({ userId: 'u1' });
+      const res = await request(app).post('/api/v1/agent').send({});
       expect(res.status).toBe(400);
     });
 
     it('returns 400 when role is invalid', async () => {
       const res = await request(app)
         .post('/api/v1/agent')
-        .send({ messages: [{ role: 'system', content: 'hi' }], userId: 'u1' });
+        .send({ messages: [{ role: 'system', content: 'hi' }] });
       expect(res.status).toBe(400);
     });
 
@@ -168,7 +159,6 @@ describe('POST /api/v1/agent', () => {
               ],
             },
           ],
-          userId: 'u1',
         });
       expect(res.status).toBe(400);
     });
@@ -183,7 +173,6 @@ describe('POST /api/v1/agent', () => {
               content: [{ type: 'image', source: { type: 'url', url: 'not-a-url' } }],
             },
           ],
-          userId: 'u1',
         });
       expect(res.status).toBe(400);
     });
@@ -193,7 +182,6 @@ describe('POST /api/v1/agent', () => {
         .post('/api/v1/agent')
         .send({
           messages: [{ role: 'user', content: [{ type: 'audio', data: 'abc' }] }],
-          userId: 'u1',
         });
       expect(res.status).toBe(400);
     });
