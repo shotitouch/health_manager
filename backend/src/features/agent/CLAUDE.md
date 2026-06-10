@@ -4,12 +4,13 @@ The heart of the app. All user interactions flow through here.
 
 ## Route
 
-`POST /api/v1/agent` — request: `{ messages, userId }`, response: `{ data: { messages, feToolCalls } }`
+`POST /api/v1/agent` — protected by `authMiddleware`; request: `{ messages }`, response: `{ data: { messages, feToolCalls } }`
 
 Request body (Zod-validated in controller):
 
 - `messages` — `{ role: 'user' | 'assistant', content: string | object[] }[]`, min 1 item
-- `userId` — non-empty string
+
+`userId` is **not** read from the body — it comes from `req.userId`, set by `authMiddleware` from the verified JWT.
 
 ## tool-registry.ts
 
@@ -64,7 +65,8 @@ The Anthropic call includes `metadata: { user_id: userId }` for per-user cost tr
 
 ## Security (current state)
 
-- Request body validated with Zod in the controller (`messages` array, `userId` string)
+- Route requires `authMiddleware`; `userId` comes from `req.userId` (verified JWT), never from the request body
+- Request body validated with Zod in the controller (`messages` array)
 - MCP argument validation and result sanitization: **planned for Phase 6** (see `executeMcpTool` stub)
 - No rate limiting implemented yet
 
