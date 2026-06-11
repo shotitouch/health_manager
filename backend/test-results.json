@@ -1,10 +1,10 @@
 {
-  "numTotalTestSuites": 22,
-  "numPassedTestSuites": 22,
+  "numTotalTestSuites": 61,
+  "numPassedTestSuites": 61,
   "numFailedTestSuites": 0,
   "numPendingTestSuites": 0,
-  "numTotalTests": 56,
-  "numPassedTests": 56,
+  "numTotalTests": 176,
+  "numPassedTests": 176,
   "numFailedTests": 0,
   "numPendingTests": 0,
   "numTodoTests": 0,
@@ -24,9 +24,88 @@
     "updated": 0,
     "didUpdate": false
   },
-  "startTime": 1781125130712,
+  "startTime": 1781143934320,
   "success": true,
   "testResults": [
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": ["errorHandler"],
+          "fullName": "errorHandler uses AppError.status as HTTP status code",
+          "status": "passed",
+          "title": "uses AppError.status as HTTP status code",
+          "duration": 1.8605000000000018,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["errorHandler"],
+          "fullName": "errorHandler defaults to 500 when no status is set",
+          "status": "passed",
+          "title": "defaults to 500 when no status is set",
+          "duration": 0.26890000000000214,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["errorHandler"],
+          "fullName": "errorHandler includes the error message in the response body",
+          "status": "passed",
+          "title": "includes the error message in the response body",
+          "duration": 0.8759000000000015,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["errorHandler"],
+          "fullName": "errorHandler sets data to null in the response body",
+          "status": "passed",
+          "title": "sets data to null in the response body",
+          "duration": 0.2651000000000181,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["errorHandler"],
+          "fullName": "errorHandler includes stack trace in error field when NODE_ENV=development",
+          "status": "passed",
+          "title": "includes stack trace in error field when NODE_ENV=development",
+          "duration": 1.8744999999999834,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["errorHandler"],
+          "fullName": "errorHandler sets error field to null when NODE_ENV=production",
+          "status": "passed",
+          "title": "sets error field to null when NODE_ENV=production",
+          "duration": 0.19929999999999382,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["errorHandler"],
+          "fullName": "errorHandler sets error field to null when NODE_ENV is unset",
+          "status": "passed",
+          "title": "sets error field to null when NODE_ENV is unset",
+          "duration": 0.11830000000000496,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        }
+      ],
+      "startTime": 1781143934575,
+      "endTime": 1781143934580.1992,
+      "status": "passed",
+      "message": "",
+      "name": "C:/Users/Nitiw/Projects/health_manager/backend/src/shared/__tests__/errorHandler.test.ts"
+    },
     {
       "assertionResults": [
         {
@@ -34,7 +113,7 @@
           "fullName": "POST /api/v1/agent valid requests returns 200 with data shape on valid body",
           "status": "passed",
           "title": "returns 200 with data shape on valid body",
-          "duration": 23.368299999999977,
+          "duration": 19.68640000000005,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -44,7 +123,7 @@
           "fullName": "POST /api/v1/agent valid requests accepts string content",
           "status": "passed",
           "title": "accepts string content",
-          "duration": 2.2334000000000174,
+          "duration": 2.7817000000000007,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -54,7 +133,7 @@
           "fullName": "POST /api/v1/agent valid requests accepts text content block",
           "status": "passed",
           "title": "accepts text content block",
-          "duration": 2.179300000000012,
+          "duration": 2.7081000000000017,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -64,7 +143,7 @@
           "fullName": "POST /api/v1/agent valid requests accepts valid base64 image content block",
           "status": "passed",
           "title": "accepts valid base64 image content block",
-          "duration": 2.071399999999983,
+          "duration": 3.162300000000016,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -74,7 +153,7 @@
           "fullName": "POST /api/v1/agent valid requests accepts valid url image content block",
           "status": "passed",
           "title": "accepts valid url image content block",
-          "duration": 2.019100000000037,
+          "duration": 2.363400000000013,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -84,7 +163,7 @@
           "fullName": "POST /api/v1/agent valid requests calls runAgentLoop with parsed messages and req.userId",
           "status": "passed",
           "title": "calls runAgentLoop with parsed messages and req.userId",
-          "duration": 2.17349999999999,
+          "duration": 2.737600000000043,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -94,7 +173,7 @@
           "fullName": "POST /api/v1/agent validation failures returns 400 when messages is empty array",
           "status": "passed",
           "title": "returns 400 when messages is empty array",
-          "duration": 1.9487000000000307,
+          "duration": 2.669499999999971,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -104,7 +183,7 @@
           "fullName": "POST /api/v1/agent validation failures returns 400 when messages is missing",
           "status": "passed",
           "title": "returns 400 when messages is missing",
-          "duration": 1.7113999999999692,
+          "duration": 2.0427999999999997,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -114,7 +193,7 @@
           "fullName": "POST /api/v1/agent validation failures returns 400 when role is invalid",
           "status": "passed",
           "title": "returns 400 when role is invalid",
-          "duration": 1.900000000000034,
+          "duration": 2.127800000000036,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -124,7 +203,7 @@
           "fullName": "POST /api/v1/agent validation failures returns 400 when base64 image source is missing data field",
           "status": "passed",
           "title": "returns 400 when base64 image source is missing data field",
-          "duration": 2.468500000000006,
+          "duration": 3.170599999999979,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -134,7 +213,7 @@
           "fullName": "POST /api/v1/agent validation failures returns 400 when url image source has invalid url",
           "status": "passed",
           "title": "returns 400 when url image source has invalid url",
-          "duration": 1.5380999999999858,
+          "duration": 1.8222999999999843,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -144,7 +223,7 @@
           "fullName": "POST /api/v1/agent validation failures returns 400 when content block has unknown type",
           "status": "passed",
           "title": "returns 400 when content block has unknown type",
-          "duration": 1.4693000000000325,
+          "duration": 1.699199999999962,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -154,7 +233,7 @@
           "fullName": "POST /api/v1/agent service errors returns 500 when service throws an untyped error",
           "status": "passed",
           "title": "returns 500 when service throws an untyped error",
-          "duration": 1.4436999999999784,
+          "duration": 1.582400000000007,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -164,14 +243,14 @@
           "fullName": "POST /api/v1/agent service errors propagates AppError status from service",
           "status": "passed",
           "title": "propagates AppError status from service",
-          "duration": 1.4343000000000075,
+          "duration": 1.6154999999999973,
           "failureMessages": [],
           "meta": {},
           "tags": []
         }
       ],
-      "startTime": 1781125131125,
-      "endTime": 1781125131172.4343,
+      "startTime": 1781143934750,
+      "endTime": 1781143934800.6155,
       "status": "passed",
       "message": "",
       "name": "C:/Users/Nitiw/Projects/health_manager/backend/src/features/agent/__tests__/agent.controller.test.ts"
@@ -183,7 +262,7 @@
           "fullName": "runAgentLoop routing — skipWorker=true makes exactly 2 SDK calls: router then presenter",
           "status": "passed",
           "title": "makes exactly 2 SDK calls: router then presenter",
-          "duration": 1.6728999999999985,
+          "duration": 1.8441000000000258,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -193,7 +272,7 @@
           "fullName": "runAgentLoop routing — skipWorker=true returns the FE tool call from the presenter",
           "status": "passed",
           "title": "returns the FE tool call from the presenter",
-          "duration": 1.0494999999999948,
+          "duration": 1.109899999999982,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -203,7 +282,7 @@
           "fullName": "runAgentLoop routing — skipWorker=true returns a non-empty messages array",
           "status": "passed",
           "title": "returns a non-empty messages array",
-          "duration": 0.1630999999999858,
+          "duration": 0.1774000000000342,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -213,7 +292,7 @@
           "fullName": "runAgentLoop routing — skipWorker=false makes exactly 3 SDK calls: router, worker, presenter",
           "status": "passed",
           "title": "makes exactly 3 SDK calls: router, worker, presenter",
-          "duration": 0.24490000000000123,
+          "duration": 0.2589999999999577,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -223,7 +302,7 @@
           "fullName": "runAgentLoop routing — skipWorker=false returns the correct FE tool from presenter",
           "status": "passed",
           "title": "returns the correct FE tool from presenter",
-          "duration": 0.20879999999999654,
+          "duration": 0.22539999999997917,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -233,7 +312,7 @@
           "fullName": "runAgentLoop worker loop cap throws after 10 iterations with \"exceeded maximum iterations\"",
           "status": "passed",
           "title": "throws after 10 iterations with \"exceeded maximum iterations\"",
-          "duration": 1.0612999999999886,
+          "duration": 1.327600000000018,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -243,7 +322,7 @@
           "fullName": "runAgentLoop worker loop cap makes 11 total SDK calls when loop cap triggers (1 router + 10 worker)",
           "status": "passed",
           "title": "makes 11 total SDK calls when loop cap triggers (1 router + 10 worker)",
-          "duration": 0.2512000000000114,
+          "duration": 0.3564000000000078,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -253,7 +332,7 @@
           "fullName": "runAgentLoop MCP execution — stub DB tools includes stub tool_result in messages passed to subsequent worker call",
           "status": "passed",
           "title": "includes stub tool_result in messages passed to subsequent worker call",
-          "duration": 0.21380000000002042,
+          "duration": 0.24840000000000373,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -263,7 +342,7 @@
           "fullName": "runAgentLoop MCP execution — USDA calls fetch with USDA API URL when API key is set",
           "status": "passed",
           "title": "calls fetch with USDA API URL when API key is set",
-          "duration": 0.6006999999999891,
+          "duration": 0.7277000000000271,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -273,7 +352,7 @@
           "fullName": "runAgentLoop MCP execution — USDA returns USDA_API_KEY-not-set note in tool_result when key is absent",
           "status": "passed",
           "title": "returns USDA_API_KEY-not-set note in tool_result when key is absent",
-          "duration": 0.22550000000001091,
+          "duration": 0.2648999999999546,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -283,7 +362,7 @@
           "fullName": "runAgentLoop MCP execution — USDA sanitizes non-ASCII characters from USDA food names",
           "status": "passed",
           "title": "sanitizes non-ASCII characters from USDA food names",
-          "duration": 0.28899999999998727,
+          "duration": 0.3372999999999706,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -293,14 +372,14 @@
           "fullName": "runAgentLoop presenter errors throws when presenter returns no tool_use blocks",
           "status": "passed",
           "title": "throws when presenter returns no tool_use blocks",
-          "duration": 0.1991999999999905,
+          "duration": 0.2378999999999678,
           "failureMessages": [],
           "meta": {},
           "tags": []
         }
       ],
-      "startTime": 1781125130971,
-      "endTime": 1781125130977.289,
+      "startTime": 1781143934638,
+      "endTime": 1781143934645.2378,
       "status": "passed",
       "message": "",
       "name": "C:/Users/Nitiw/Projects/health_manager/backend/src/features/agent/__tests__/agent.service.test.ts"
@@ -312,7 +391,7 @@
           "fullName": "tool-registry FE_TOOL_NAMES matches FE_TOOLS array exactly",
           "status": "passed",
           "title": "matches FE_TOOLS array exactly",
-          "duration": 1.079199999999986,
+          "duration": 1.256699999999995,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -322,7 +401,7 @@
           "fullName": "tool-registry FE_TOOL_NAMES contains the same count as FE_TOOLS",
           "status": "passed",
           "title": "contains the same count as FE_TOOLS",
-          "duration": 0.14979999999999905,
+          "duration": 0.18130000000002156,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -332,7 +411,7 @@
           "fullName": "tool-registry MCP_TOOL_NAMES matches MCP_TOOLS array exactly",
           "status": "passed",
           "title": "matches MCP_TOOLS array exactly",
-          "duration": 0.11679999999998358,
+          "duration": 0.12340000000000373,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -342,7 +421,7 @@
           "fullName": "tool-registry MCP_TOOL_NAMES contains the same count as MCP_TOOLS",
           "status": "passed",
           "title": "contains the same count as MCP_TOOLS",
-          "duration": 0.0771999999999764,
+          "duration": 0.09090000000000487,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -352,7 +431,7 @@
           "fullName": "tool-registry namespace collision FE and MCP tool names are disjoint",
           "status": "passed",
           "title": "FE and MCP tool names are disjoint",
-          "duration": 0.40790000000001214,
+          "duration": 0.4556999999999789,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -362,7 +441,7 @@
           "fullName": "tool-registry tool shape 'show_dashboard' has required fields",
           "status": "passed",
           "title": "'show_dashboard' has required fields",
-          "duration": 0.19429999999999836,
+          "duration": 0.269299999999987,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -372,7 +451,7 @@
           "fullName": "tool-registry tool shape 'show_profile_form' has required fields",
           "status": "passed",
           "title": "'show_profile_form' has required fields",
-          "duration": 0.11179999999998813,
+          "duration": 0.16620000000000346,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -382,7 +461,7 @@
           "fullName": "tool-registry tool shape 'show_food_input' has required fields",
           "status": "passed",
           "title": "'show_food_input' has required fields",
-          "duration": 0.1342999999999961,
+          "duration": 0.17300000000000182,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -392,7 +471,7 @@
           "fullName": "tool-registry tool shape 'show_food_log' has required fields",
           "status": "passed",
           "title": "'show_food_log' has required fields",
-          "duration": 0.11719999999999686,
+          "duration": 0.24950000000001182,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -402,7 +481,7 @@
           "fullName": "tool-registry tool shape 'show_exercise_input' has required fields",
           "status": "passed",
           "title": "'show_exercise_input' has required fields",
-          "duration": 0.13919999999998822,
+          "duration": 0.24320000000000164,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -412,7 +491,7 @@
           "fullName": "tool-registry tool shape 'show_exercise_log' has required fields",
           "status": "passed",
           "title": "'show_exercise_log' has required fields",
-          "duration": 0.09080000000000155,
+          "duration": 0.10450000000000159,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -422,7 +501,7 @@
           "fullName": "tool-registry tool shape 'show_health_summary' has required fields",
           "status": "passed",
           "title": "'show_health_summary' has required fields",
-          "duration": 0.08039999999999736,
+          "duration": 0.07780000000002474,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -432,7 +511,7 @@
           "fullName": "tool-registry tool shape 'ask_clarification' has required fields",
           "status": "passed",
           "title": "'ask_clarification' has required fields",
-          "duration": 0.0630999999999915,
+          "duration": 0.07150000000001455,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -442,7 +521,7 @@
           "fullName": "tool-registry tool shape 'display_message' has required fields",
           "status": "passed",
           "title": "'display_message' has required fields",
-          "duration": 0.059699999999992315,
+          "duration": 0.07729999999997972,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -452,7 +531,7 @@
           "fullName": "tool-registry tool shape 'search_food_library' has required fields",
           "status": "passed",
           "title": "'search_food_library' has required fields",
-          "duration": 0.07399999999998386,
+          "duration": 0.07169999999999277,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -462,7 +541,7 @@
           "fullName": "tool-registry tool shape 'search_nutrition_usda' has required fields",
           "status": "passed",
           "title": "'search_nutrition_usda' has required fields",
-          "duration": 0.05519999999998504,
+          "duration": 0.06319999999999482,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -472,7 +551,7 @@
           "fullName": "tool-registry tool shape 'search_nutrition_thai' has required fields",
           "status": "passed",
           "title": "'search_nutrition_thai' has required fields",
-          "duration": 0.05539999999999168,
+          "duration": 0.06770000000000209,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -482,7 +561,7 @@
           "fullName": "tool-registry tool shape 'web_search' has required fields",
           "status": "passed",
           "title": "'web_search' has required fields",
-          "duration": 0.055900000000008276,
+          "duration": 0.06880000000001019,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -492,7 +571,7 @@
           "fullName": "tool-registry tool shape 'get_user_log' has required fields",
           "status": "passed",
           "title": "'get_user_log' has required fields",
-          "duration": 0.06980000000001496,
+          "duration": 0.06680000000000064,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -502,7 +581,7 @@
           "fullName": "tool-registry tool shape 'get_user_profile' has required fields",
           "status": "passed",
           "title": "'get_user_profile' has required fields",
-          "duration": 0.0759999999999934,
+          "duration": 0.11959999999999127,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -512,7 +591,7 @@
           "fullName": "tool-registry tool shape 'save_food_entry' has required fields",
           "status": "passed",
           "title": "'save_food_entry' has required fields",
-          "duration": 0.06690000000000396,
+          "duration": 0.12399999999999523,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -522,7 +601,7 @@
           "fullName": "tool-registry tool shape 'save_exercise_entry' has required fields",
           "status": "passed",
           "title": "'save_exercise_entry' has required fields",
-          "duration": 0.05700000000001637,
+          "duration": 0.11019999999999186,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -532,7 +611,7 @@
           "fullName": "tool-registry tool shape 'save_to_food_library' has required fields",
           "status": "passed",
           "title": "'save_to_food_library' has required fields",
-          "duration": 0.06100000000000705,
+          "duration": 0.106899999999996,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -542,7 +621,7 @@
           "fullName": "tool-registry tool shape 'save_to_exercise_library' has required fields",
           "status": "passed",
           "title": "'save_to_exercise_library' has required fields",
-          "duration": 0.06340000000000146,
+          "duration": 0.10850000000002069,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -552,7 +631,7 @@
           "fullName": "tool-registry tool shape 'search_exercise_library' has required fields",
           "status": "passed",
           "title": "'search_exercise_library' has required fields",
-          "duration": 0.05559999999999832,
+          "duration": 0.0776000000000181,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -562,7 +641,7 @@
           "fullName": "tool-registry show_food_input exists in FE_TOOLS",
           "status": "passed",
           "title": "exists in FE_TOOLS",
-          "duration": 0.04200000000000159,
+          "duration": 0.05830000000000268,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -572,7 +651,7 @@
           "fullName": "tool-registry show_food_input prefill is not a top-level required field",
           "status": "passed",
           "title": "prefill is not a top-level required field",
-          "duration": 0.2150000000000034,
+          "duration": 0.2564999999999884,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -582,7 +661,7 @@
           "fullName": "tool-registry show_food_input prefill.name and prefill.calories are required within prefill",
           "status": "passed",
           "title": "prefill.name and prefill.calories are required within prefill",
-          "duration": 0.11830000000000496,
+          "duration": 0.12690000000000623,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -592,7 +671,7 @@
           "fullName": "tool-registry show_exercise_input prefill.name and prefill.calories_burned are required within prefill",
           "status": "passed",
           "title": "prefill.name and prefill.calories_burned are required within prefill",
-          "duration": 0.10930000000001883,
+          "duration": 0.11610000000001719,
           "failureMessages": [],
           "meta": {},
           "tags": []
@@ -602,17 +681,1201 @@
           "fullName": "tool-registry display_message message field is required",
           "status": "passed",
           "title": "message field is required",
-          "duration": 0.059799999999995634,
+          "duration": 0.06730000000001723,
           "failureMessages": [],
           "meta": {},
           "tags": []
         }
       ],
-      "startTime": 1781125130901,
-      "endTime": 1781125130906.1094,
+      "startTime": 1781143934584,
+      "endTime": 1781143934589.2566,
       "status": "passed",
       "message": "",
       "name": "C:/Users/Nitiw/Projects/health_manager/backend/src/features/agent/__tests__/tool-registry.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": ["POST /api/v1/auth/register"],
+          "fullName": "POST /api/v1/auth/register returns 200 with accessToken and user on valid body",
+          "status": "passed",
+          "title": "returns 200 with accessToken and user on valid body",
+          "duration": 19.73049999999995,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/auth/register"],
+          "fullName": "POST /api/v1/auth/register sets refreshToken httpOnly cookie on success",
+          "status": "passed",
+          "title": "sets refreshToken httpOnly cookie on success",
+          "duration": 2.7451000000000363,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/auth/register"],
+          "fullName": "POST /api/v1/auth/register accepts optional name field",
+          "status": "passed",
+          "title": "accepts optional name field",
+          "duration": 2.3490999999999644,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/auth/register"],
+          "fullName": "POST /api/v1/auth/register returns 400 when email is missing",
+          "status": "passed",
+          "title": "returns 400 when email is missing",
+          "duration": 2.674500000000023,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/auth/register"],
+          "fullName": "POST /api/v1/auth/register returns 400 when email is invalid",
+          "status": "passed",
+          "title": "returns 400 when email is invalid",
+          "duration": 2.896600000000035,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/auth/register"],
+          "fullName": "POST /api/v1/auth/register returns 400 when password is missing",
+          "status": "passed",
+          "title": "returns 400 when password is missing",
+          "duration": 2.1680999999999813,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/auth/register"],
+          "fullName": "POST /api/v1/auth/register returns 400 when password is shorter than 8 characters",
+          "status": "passed",
+          "title": "returns 400 when password is shorter than 8 characters",
+          "duration": 1.8349000000000046,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/auth/register"],
+          "fullName": "POST /api/v1/auth/register returns 500 when service throws",
+          "status": "passed",
+          "title": "returns 500 when service throws",
+          "duration": 1.9010000000000105,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/auth/login"],
+          "fullName": "POST /api/v1/auth/login returns 200 with accessToken and user on valid body",
+          "status": "passed",
+          "title": "returns 200 with accessToken and user on valid body",
+          "duration": 2.635600000000011,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/auth/login"],
+          "fullName": "POST /api/v1/auth/login sets refreshToken httpOnly cookie on success",
+          "status": "passed",
+          "title": "sets refreshToken httpOnly cookie on success",
+          "duration": 2.122000000000014,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/auth/login"],
+          "fullName": "POST /api/v1/auth/login returns 400 when email is missing",
+          "status": "passed",
+          "title": "returns 400 when email is missing",
+          "duration": 1.7770999999999617,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/auth/login"],
+          "fullName": "POST /api/v1/auth/login returns 400 when email is invalid",
+          "status": "passed",
+          "title": "returns 400 when email is invalid",
+          "duration": 1.550799999999981,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/auth/login"],
+          "fullName": "POST /api/v1/auth/login returns 400 when password is missing",
+          "status": "passed",
+          "title": "returns 400 when password is missing",
+          "duration": 1.706700000000012,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/auth/login"],
+          "fullName": "POST /api/v1/auth/login returns 500 when service throws",
+          "status": "passed",
+          "title": "returns 500 when service throws",
+          "duration": 1.7742999999999824,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/auth/refresh"],
+          "fullName": "POST /api/v1/auth/refresh returns 200 with new accessToken when valid cookie present",
+          "status": "passed",
+          "title": "returns 200 with new accessToken when valid cookie present",
+          "duration": 2.0073000000000434,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/auth/refresh"],
+          "fullName": "POST /api/v1/auth/refresh rotates the refreshToken cookie on success",
+          "status": "passed",
+          "title": "rotates the refreshToken cookie on success",
+          "duration": 1.622000000000014,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/auth/refresh"],
+          "fullName": "POST /api/v1/auth/refresh returns 401 when refreshToken cookie is absent",
+          "status": "passed",
+          "title": "returns 401 when refreshToken cookie is absent",
+          "duration": 1.4406999999999925,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/auth/refresh"],
+          "fullName": "POST /api/v1/auth/refresh returns 500 when service throws",
+          "status": "passed",
+          "title": "returns 500 when service throws",
+          "duration": 1.5798000000000343,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/auth/logout"],
+          "fullName": "POST /api/v1/auth/logout returns 200 and clears the refreshToken cookie",
+          "status": "passed",
+          "title": "returns 200 and clears the refreshToken cookie",
+          "duration": 1.8635999999999626,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        }
+      ],
+      "startTime": 1781143934746,
+      "endTime": 1781143934802.8635,
+      "status": "passed",
+      "message": "",
+      "name": "C:/Users/Nitiw/Projects/health_manager/backend/src/features/auth/__tests__/auth.controller.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": ["GET /api/v1/dashboard", "valid requests"],
+          "fullName": "GET /api/v1/dashboard valid requests returns 200 with the dashboard rollup when no date is provided",
+          "status": "passed",
+          "title": "returns 200 with the dashboard rollup when no date is provided",
+          "duration": 12.942900000000009,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["GET /api/v1/dashboard", "valid requests"],
+          "fullName": "GET /api/v1/dashboard valid requests calls getDashboard with the auth header and no date when omitted",
+          "status": "passed",
+          "title": "calls getDashboard with the auth header and no date when omitted",
+          "duration": 3.4331999999999994,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["GET /api/v1/dashboard", "valid requests"],
+          "fullName": "GET /api/v1/dashboard valid requests returns 200 when a valid date is provided",
+          "status": "passed",
+          "title": "returns 200 when a valid date is provided",
+          "duration": 2.2765999999999735,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["GET /api/v1/dashboard", "valid requests"],
+          "fullName": "GET /api/v1/dashboard valid requests calls getDashboard with the parsed date when provided",
+          "status": "passed",
+          "title": "calls getDashboard with the parsed date when provided",
+          "duration": 2.191699999999969,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["GET /api/v1/dashboard", "valid requests"],
+          "fullName": "GET /api/v1/dashboard valid requests forwards the exact Authorization header value to the service",
+          "status": "passed",
+          "title": "forwards the exact Authorization header value to the service",
+          "duration": 2.1818999999999846,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["GET /api/v1/dashboard", "validation failures"],
+          "fullName": "GET /api/v1/dashboard validation failures returns 400 when date format is invalid (MM/DD/YYYY)",
+          "status": "passed",
+          "title": "returns 400 when date format is invalid (MM/DD/YYYY)",
+          "duration": 2.6708000000000425,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["GET /api/v1/dashboard", "validation failures"],
+          "fullName": "GET /api/v1/dashboard validation failures returns 400 when date is not a date string",
+          "status": "passed",
+          "title": "returns 400 when date is not a date string",
+          "duration": 1.989499999999964,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["GET /api/v1/dashboard", "validation failures"],
+          "fullName": "GET /api/v1/dashboard validation failures returns 401 when no Authorization header is present",
+          "status": "passed",
+          "title": "returns 401 when no Authorization header is present",
+          "duration": 1.9617000000000075,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["GET /api/v1/dashboard", "service errors"],
+          "fullName": "GET /api/v1/dashboard service errors returns 500 when getDashboard throws an untyped error",
+          "status": "passed",
+          "title": "returns 500 when getDashboard throws an untyped error",
+          "duration": 3.6288999999999874,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["GET /api/v1/dashboard", "service errors"],
+          "fullName": "GET /api/v1/dashboard service errors propagates AppError status from service (e.g. upstream failure)",
+          "status": "passed",
+          "title": "propagates AppError status from service (e.g. upstream failure)",
+          "duration": 2.251699999999971,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        }
+      ],
+      "startTime": 1781143934746,
+      "endTime": 1781143934781.2517,
+      "status": "passed",
+      "message": "",
+      "name": "C:/Users/Nitiw/Projects/health_manager/backend/src/features/dashboard/__tests__/dashboard.controller.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": ["getDashboard"],
+          "fullName": "getDashboard aggregates profile, food, and exercise totals into the dashboard shape",
+          "status": "passed",
+          "title": "aggregates profile, food, and exercise totals into the dashboard shape",
+          "duration": 1.962299999999999,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["getDashboard"],
+          "fullName": "getDashboard computes negative net and remaining when burned exceeds consumed and target",
+          "status": "passed",
+          "title": "computes negative net and remaining when burned exceeds consumed and target",
+          "duration": 0.3791999999999973,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["getDashboard"],
+          "fullName": "getDashboard returns null bmr/tdee/target/remaining when the profile is not found (404)",
+          "status": "passed",
+          "title": "returns null bmr/tdee/target/remaining when the profile is not found (404)",
+          "duration": 0.35000000000002274,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["getDashboard"],
+          "fullName": "getDashboard defaults date to today when not provided",
+          "status": "passed",
+          "title": "defaults date to today when not provided",
+          "duration": 1.0048000000000172,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["getDashboard"],
+          "fullName": "getDashboard uses the provided date in food and exercise requests",
+          "status": "passed",
+          "title": "uses the provided date in food and exercise requests",
+          "duration": 0.2213000000000136,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["getDashboard"],
+          "fullName": "getDashboard forwards the Authorization header to all three internal requests",
+          "status": "passed",
+          "title": "forwards the Authorization header to all three internal requests",
+          "duration": 0.6191000000000031,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["getDashboard", "upstream errors"],
+          "fullName": "getDashboard upstream errors throws a 502 AppError when the profile endpoint returns a non-ok, non-404 status",
+          "status": "passed",
+          "title": "throws a 502 AppError when the profile endpoint returns a non-ok, non-404 status",
+          "duration": 0.651600000000002,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["getDashboard", "upstream errors"],
+          "fullName": "getDashboard upstream errors throws a 502 AppError when the food endpoint returns a non-ok, non-404 status",
+          "status": "passed",
+          "title": "throws a 502 AppError when the food endpoint returns a non-ok, non-404 status",
+          "duration": 0.22270000000000323,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["getDashboard", "upstream errors"],
+          "fullName": "getDashboard upstream errors throws a 502 AppError when the exercise endpoint returns a non-ok, non-404 status",
+          "status": "passed",
+          "title": "throws a 502 AppError when the exercise endpoint returns a non-ok, non-404 status",
+          "duration": 0.2202000000000055,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["getDashboard", "upstream errors"],
+          "fullName": "getDashboard upstream errors rejects when an internal fetch call itself fails (e.g. connection refused)",
+          "status": "passed",
+          "title": "rejects when an internal fetch call itself fails (e.g. connection refused)",
+          "duration": 0.7151000000000067,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        }
+      ],
+      "startTime": 1781143934575,
+      "endTime": 1781143934581.715,
+      "status": "passed",
+      "message": "",
+      "name": "C:/Users/Nitiw/Projects/health_manager/backend/src/features/dashboard/__tests__/dashboard.service.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": ["POST /api/v1/exercise/entries", "valid requests"],
+          "fullName": "POST /api/v1/exercise/entries valid requests returns 201 with the created entry",
+          "status": "passed",
+          "title": "returns 201 with the created entry",
+          "duration": 19.597699999999975,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/exercise/entries", "valid requests"],
+          "fullName": "POST /api/v1/exercise/entries valid requests calls logExerciseEntry with userId and parsed body",
+          "status": "passed",
+          "title": "calls logExerciseEntry with userId and parsed body",
+          "duration": 3.7391000000000076,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/exercise/entries", "valid requests"],
+          "fullName": "POST /api/v1/exercise/entries valid requests accepts optional duration_min",
+          "status": "passed",
+          "title": "accepts optional duration_min",
+          "duration": 2.193900000000042,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/exercise/entries", "valid requests"],
+          "fullName": "POST /api/v1/exercise/entries valid requests accepts optional logged_at string",
+          "status": "passed",
+          "title": "accepts optional logged_at string",
+          "duration": 2.5072999999999865,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/exercise/entries", "validation failures"],
+          "fullName": "POST /api/v1/exercise/entries validation failures returns 400 when exercise_name is missing",
+          "status": "passed",
+          "title": "returns 400 when exercise_name is missing",
+          "duration": 2.914600000000007,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/exercise/entries", "validation failures"],
+          "fullName": "POST /api/v1/exercise/entries validation failures returns 400 when calories_burned is missing",
+          "status": "passed",
+          "title": "returns 400 when calories_burned is missing",
+          "duration": 2.108000000000004,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/exercise/entries", "validation failures"],
+          "fullName": "POST /api/v1/exercise/entries validation failures returns 400 when exercise_name is empty string",
+          "status": "passed",
+          "title": "returns 400 when exercise_name is empty string",
+          "duration": 2.173500000000047,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/exercise/entries", "validation failures"],
+          "fullName": "POST /api/v1/exercise/entries validation failures returns 400 when exercise_name is whitespace only",
+          "status": "passed",
+          "title": "returns 400 when exercise_name is whitespace only",
+          "duration": 1.919300000000021,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/exercise/entries", "validation failures"],
+          "fullName": "POST /api/v1/exercise/entries validation failures returns 400 when exercise_name exceeds 200 chars",
+          "status": "passed",
+          "title": "returns 400 when exercise_name exceeds 200 chars",
+          "duration": 2.0686000000000035,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/exercise/entries", "validation failures"],
+          "fullName": "POST /api/v1/exercise/entries validation failures returns 400 when calories_burned is negative",
+          "status": "passed",
+          "title": "returns 400 when calories_burned is negative",
+          "duration": 2.198000000000036,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/exercise/entries", "validation failures"],
+          "fullName": "POST /api/v1/exercise/entries validation failures returns 400 when calories_burned exceeds maximum",
+          "status": "passed",
+          "title": "returns 400 when calories_burned exceeds maximum",
+          "duration": 1.8862000000000307,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/exercise/entries", "validation failures"],
+          "fullName": "POST /api/v1/exercise/entries validation failures returns 400 when duration_min is negative",
+          "status": "passed",
+          "title": "returns 400 when duration_min is negative",
+          "duration": 1.7198000000000206,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/exercise/entries", "validation failures"],
+          "fullName": "POST /api/v1/exercise/entries validation failures returns 400 when duration_min exceeds maximum",
+          "status": "passed",
+          "title": "returns 400 when duration_min exceeds maximum",
+          "duration": 1.9086000000000354,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/exercise/entries", "validation failures"],
+          "fullName": "POST /api/v1/exercise/entries validation failures returns 400 when logged_at is not a valid ISO datetime",
+          "status": "passed",
+          "title": "returns 400 when logged_at is not a valid ISO datetime",
+          "duration": 1.7948000000000093,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/exercise/entries", "validation failures"],
+          "fullName": "POST /api/v1/exercise/entries validation failures accepts calories_burned of 0 (boundary)",
+          "status": "passed",
+          "title": "accepts calories_burned of 0 (boundary)",
+          "duration": 2.5996999999999844,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/exercise/entries", "validation failures"],
+          "fullName": "POST /api/v1/exercise/entries validation failures accepts calories_burned of 10000 (boundary)",
+          "status": "passed",
+          "title": "accepts calories_burned of 10000 (boundary)",
+          "duration": 1.531000000000006,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/exercise/entries", "service errors"],
+          "fullName": "POST /api/v1/exercise/entries service errors returns 500 when logExerciseEntry throws an untyped error",
+          "status": "passed",
+          "title": "returns 500 when logExerciseEntry throws an untyped error",
+          "duration": 1.6619000000000028,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/exercise/entries", "service errors"],
+          "fullName": "POST /api/v1/exercise/entries service errors propagates AppError status from service",
+          "status": "passed",
+          "title": "propagates AppError status from service",
+          "duration": 1.705600000000004,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["GET /api/v1/exercise/entries", "valid requests"],
+          "fullName": "GET /api/v1/exercise/entries valid requests returns 200 with entries and totals when no date provided",
+          "status": "passed",
+          "title": "returns 200 with entries and totals when no date provided",
+          "duration": 2.0807000000000357,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["GET /api/v1/exercise/entries", "valid requests"],
+          "fullName": "GET /api/v1/exercise/entries valid requests returns 200 when a valid date is provided",
+          "status": "passed",
+          "title": "returns 200 when a valid date is provided",
+          "duration": 1.7887999999999806,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["GET /api/v1/exercise/entries", "valid requests"],
+          "fullName": "GET /api/v1/exercise/entries valid requests calls getExerciseEntries with userId and date when provided",
+          "status": "passed",
+          "title": "calls getExerciseEntries with userId and date when provided",
+          "duration": 2.0102999999999724,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["GET /api/v1/exercise/entries", "valid requests"],
+          "fullName": "GET /api/v1/exercise/entries valid requests calls getExerciseEntries with userId and no date when omitted",
+          "status": "passed",
+          "title": "calls getExerciseEntries with userId and no date when omitted",
+          "duration": 1.563099999999963,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["GET /api/v1/exercise/entries", "validation failures"],
+          "fullName": "GET /api/v1/exercise/entries validation failures returns 400 when date format is invalid",
+          "status": "passed",
+          "title": "returns 400 when date format is invalid",
+          "duration": 1.5921000000000163,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["GET /api/v1/exercise/entries", "validation failures"],
+          "fullName": "GET /api/v1/exercise/entries validation failures returns 400 when date is in wrong format (MM/DD/YYYY)",
+          "status": "passed",
+          "title": "returns 400 when date is in wrong format (MM/DD/YYYY)",
+          "duration": 1.335899999999981,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["GET /api/v1/exercise/entries", "service errors"],
+          "fullName": "GET /api/v1/exercise/entries service errors returns 500 when getExerciseEntries throws an untyped error",
+          "status": "passed",
+          "title": "returns 500 when getExerciseEntries throws an untyped error",
+          "duration": 1.362700000000018,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["GET /api/v1/exercise/entries", "service errors"],
+          "fullName": "GET /api/v1/exercise/entries service errors propagates AppError status from service",
+          "status": "passed",
+          "title": "propagates AppError status from service",
+          "duration": 1.1970000000000027,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        }
+      ],
+      "startTime": 1781143934742,
+      "endTime": 1781143934812.197,
+      "status": "passed",
+      "message": "",
+      "name": "C:/Users/Nitiw/Projects/health_manager/backend/src/features/exercise/__tests__/exercise.controller.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": ["POST /api/v1/food/entries", "valid requests"],
+          "fullName": "POST /api/v1/food/entries valid requests returns 201 with the created entry",
+          "status": "passed",
+          "title": "returns 201 with the created entry",
+          "duration": 20.23670000000004,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/food/entries", "valid requests"],
+          "fullName": "POST /api/v1/food/entries valid requests calls logFoodEntry with userId and parsed body",
+          "status": "passed",
+          "title": "calls logFoodEntry with userId and parsed body",
+          "duration": 3.592399999999998,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/food/entries", "valid requests"],
+          "fullName": "POST /api/v1/food/entries valid requests accepts optional protein_g, carbs_g, fat_g",
+          "status": "passed",
+          "title": "accepts optional protein_g, carbs_g, fat_g",
+          "duration": 3.1204999999999927,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/food/entries", "valid requests"],
+          "fullName": "POST /api/v1/food/entries valid requests accepts optional logged_at string",
+          "status": "passed",
+          "title": "accepts optional logged_at string",
+          "duration": 2.3571000000000026,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/food/entries", "validation failures"],
+          "fullName": "POST /api/v1/food/entries validation failures returns 400 when food_name is missing",
+          "status": "passed",
+          "title": "returns 400 when food_name is missing",
+          "duration": 2.5247999999999706,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/food/entries", "validation failures"],
+          "fullName": "POST /api/v1/food/entries validation failures returns 400 when calories is missing",
+          "status": "passed",
+          "title": "returns 400 when calories is missing",
+          "duration": 2.148800000000051,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/food/entries", "validation failures"],
+          "fullName": "POST /api/v1/food/entries validation failures returns 400 when food_name is empty string",
+          "status": "passed",
+          "title": "returns 400 when food_name is empty string",
+          "duration": 2.0131000000000085,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/food/entries", "validation failures"],
+          "fullName": "POST /api/v1/food/entries validation failures returns 400 when food_name exceeds 200 chars",
+          "status": "passed",
+          "title": "returns 400 when food_name exceeds 200 chars",
+          "duration": 1.8442000000000007,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/food/entries", "validation failures"],
+          "fullName": "POST /api/v1/food/entries validation failures returns 400 when calories is negative",
+          "status": "passed",
+          "title": "returns 400 when calories is negative",
+          "duration": 1.9253999999999678,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/food/entries", "validation failures"],
+          "fullName": "POST /api/v1/food/entries validation failures returns 400 when calories exceeds maximum",
+          "status": "passed",
+          "title": "returns 400 when calories exceeds maximum",
+          "duration": 2.216000000000008,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/food/entries", "validation failures"],
+          "fullName": "POST /api/v1/food/entries validation failures returns 400 when protein_g is negative",
+          "status": "passed",
+          "title": "returns 400 when protein_g is negative",
+          "duration": 1.6467999999999847,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/food/entries", "validation failures"],
+          "fullName": "POST /api/v1/food/entries validation failures returns 400 when logged_at is not a valid ISO datetime",
+          "status": "passed",
+          "title": "returns 400 when logged_at is not a valid ISO datetime",
+          "duration": 1.7483000000000288,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/food/entries", "validation failures"],
+          "fullName": "POST /api/v1/food/entries validation failures returns 400 when food_name is whitespace only",
+          "status": "passed",
+          "title": "returns 400 when food_name is whitespace only",
+          "duration": 1.633199999999988,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/food/entries", "validation failures"],
+          "fullName": "POST /api/v1/food/entries validation failures accepts calories of 0 (boundary)",
+          "status": "passed",
+          "title": "accepts calories of 0 (boundary)",
+          "duration": 1.5799000000000092,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/food/entries", "validation failures"],
+          "fullName": "POST /api/v1/food/entries validation failures accepts calories of 10000 (boundary)",
+          "status": "passed",
+          "title": "accepts calories of 10000 (boundary)",
+          "duration": 1.6147000000000276,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/food/entries", "service errors"],
+          "fullName": "POST /api/v1/food/entries service errors returns 500 when logFoodEntry throws an untyped error",
+          "status": "passed",
+          "title": "returns 500 when logFoodEntry throws an untyped error",
+          "duration": 1.6591999999999985,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["POST /api/v1/food/entries", "service errors"],
+          "fullName": "POST /api/v1/food/entries service errors propagates AppError status from service",
+          "status": "passed",
+          "title": "propagates AppError status from service",
+          "duration": 1.518699999999967,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["GET /api/v1/food/entries", "valid requests"],
+          "fullName": "GET /api/v1/food/entries valid requests returns 200 with entries and totals when no date provided",
+          "status": "passed",
+          "title": "returns 200 with entries and totals when no date provided",
+          "duration": 2.318399999999997,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["GET /api/v1/food/entries", "valid requests"],
+          "fullName": "GET /api/v1/food/entries valid requests returns 200 when a valid date is provided",
+          "status": "passed",
+          "title": "returns 200 when a valid date is provided",
+          "duration": 1.596900000000005,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["GET /api/v1/food/entries", "valid requests"],
+          "fullName": "GET /api/v1/food/entries valid requests calls getFoodEntries with userId and date when provided",
+          "status": "passed",
+          "title": "calls getFoodEntries with userId and date when provided",
+          "duration": 1.6568000000000325,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["GET /api/v1/food/entries", "valid requests"],
+          "fullName": "GET /api/v1/food/entries valid requests calls getFoodEntries with userId and no date when omitted",
+          "status": "passed",
+          "title": "calls getFoodEntries with userId and no date when omitted",
+          "duration": 1.8149999999999977,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["GET /api/v1/food/entries", "validation failures"],
+          "fullName": "GET /api/v1/food/entries validation failures returns 400 when date format is invalid",
+          "status": "passed",
+          "title": "returns 400 when date format is invalid",
+          "duration": 1.9232999999999834,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["GET /api/v1/food/entries", "validation failures"],
+          "fullName": "GET /api/v1/food/entries validation failures returns 400 when date is in wrong format (MM/DD/YYYY)",
+          "status": "passed",
+          "title": "returns 400 when date is in wrong format (MM/DD/YYYY)",
+          "duration": 1.620900000000006,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["GET /api/v1/food/entries", "service errors"],
+          "fullName": "GET /api/v1/food/entries service errors returns 500 when getFoodEntries throws an untyped error",
+          "status": "passed",
+          "title": "returns 500 when getFoodEntries throws an untyped error",
+          "duration": 1.3360999999999876,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["GET /api/v1/food/entries", "service errors"],
+          "fullName": "GET /api/v1/food/entries service errors propagates AppError status from service",
+          "status": "passed",
+          "title": "propagates AppError status from service",
+          "duration": 1.3688999999999965,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        }
+      ],
+      "startTime": 1781143934743,
+      "endTime": 1781143934810.369,
+      "status": "passed",
+      "message": "",
+      "name": "C:/Users/Nitiw/Projects/health_manager/backend/src/features/food/__tests__/food.controller.test.ts"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": ["GET /api/v1/profile"],
+          "fullName": "GET /api/v1/profile returns 404 when profile does not exist",
+          "status": "passed",
+          "title": "returns 404 when profile does not exist",
+          "duration": 12.293799999999976,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["GET /api/v1/profile"],
+          "fullName": "GET /api/v1/profile calls getProfile with the userId from middleware",
+          "status": "passed",
+          "title": "calls getProfile with the userId from middleware",
+          "duration": 3.092899999999986,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["GET /api/v1/profile"],
+          "fullName": "GET /api/v1/profile returns 500 when getProfile throws",
+          "status": "passed",
+          "title": "returns 500 when getProfile throws",
+          "duration": 2.0932000000000244,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["PUT /api/v1/profile", "valid requests"],
+          "fullName": "PUT /api/v1/profile valid requests returns 200 with profile data on valid body",
+          "status": "passed",
+          "title": "returns 200 with profile data on valid body",
+          "duration": 10.939899999999966,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["PUT /api/v1/profile", "valid requests"],
+          "fullName": "PUT /api/v1/profile valid requests accepts optional name field",
+          "status": "passed",
+          "title": "accepts optional name field",
+          "duration": 2.5867999999999824,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["PUT /api/v1/profile", "valid requests"],
+          "fullName": "PUT /api/v1/profile valid requests accepts optional goal field",
+          "status": "passed",
+          "title": "accepts optional goal field",
+          "duration": 1.914699999999982,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["PUT /api/v1/profile", "valid requests"],
+          "fullName": "PUT /api/v1/profile valid requests accepts female sex",
+          "status": "passed",
+          "title": "accepts female sex",
+          "duration": 1.8436999999999557,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["PUT /api/v1/profile", "valid requests"],
+          "fullName": "PUT /api/v1/profile valid requests calls upsertProfile with userId and parsed body",
+          "status": "passed",
+          "title": "calls upsertProfile with userId and parsed body",
+          "duration": 2.704400000000021,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["PUT /api/v1/profile", "validation failures"],
+          "fullName": "PUT /api/v1/profile validation failures returns 400 when age is missing",
+          "status": "passed",
+          "title": "returns 400 when age is missing",
+          "duration": 2.5131000000000085,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["PUT /api/v1/profile", "validation failures"],
+          "fullName": "PUT /api/v1/profile validation failures returns 400 when sex is missing",
+          "status": "passed",
+          "title": "returns 400 when sex is missing",
+          "duration": 2.342900000000043,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["PUT /api/v1/profile", "validation failures"],
+          "fullName": "PUT /api/v1/profile validation failures returns 400 when weight_kg is missing",
+          "status": "passed",
+          "title": "returns 400 when weight_kg is missing",
+          "duration": 1.9884999999999877,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["PUT /api/v1/profile", "validation failures"],
+          "fullName": "PUT /api/v1/profile validation failures returns 400 when height_cm is missing",
+          "status": "passed",
+          "title": "returns 400 when height_cm is missing",
+          "duration": 1.7871999999999844,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["PUT /api/v1/profile", "validation failures"],
+          "fullName": "PUT /api/v1/profile validation failures returns 400 when activity_level is missing",
+          "status": "passed",
+          "title": "returns 400 when activity_level is missing",
+          "duration": 1.8269999999999982,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["PUT /api/v1/profile", "validation failures"],
+          "fullName": "PUT /api/v1/profile validation failures returns 400 when age is 0",
+          "status": "passed",
+          "title": "returns 400 when age is 0",
+          "duration": 1.708500000000015,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["PUT /api/v1/profile", "validation failures"],
+          "fullName": "PUT /api/v1/profile validation failures returns 400 when age is 121",
+          "status": "passed",
+          "title": "returns 400 when age is 121",
+          "duration": 1.7309000000000196,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["PUT /api/v1/profile", "validation failures"],
+          "fullName": "PUT /api/v1/profile validation failures returns 400 when sex is invalid",
+          "status": "passed",
+          "title": "returns 400 when sex is invalid",
+          "duration": 1.75649999999996,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["PUT /api/v1/profile", "validation failures"],
+          "fullName": "PUT /api/v1/profile validation failures returns 400 when activity_level is invalid",
+          "status": "passed",
+          "title": "returns 400 when activity_level is invalid",
+          "duration": 1.6819999999999595,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["PUT /api/v1/profile", "validation failures"],
+          "fullName": "PUT /api/v1/profile validation failures returns 400 when weight_kg is negative",
+          "status": "passed",
+          "title": "returns 400 when weight_kg is negative",
+          "duration": 1.7364000000000033,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["PUT /api/v1/profile", "validation failures"],
+          "fullName": "PUT /api/v1/profile validation failures returns 400 when height_cm is zero",
+          "status": "passed",
+          "title": "returns 400 when height_cm is zero",
+          "duration": 1.7029999999999745,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["PUT /api/v1/profile", "validation failures"],
+          "fullName": "PUT /api/v1/profile validation failures returns 400 when name exceeds 100 chars",
+          "status": "passed",
+          "title": "returns 400 when name exceeds 100 chars",
+          "duration": 2.1444999999999936,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["PUT /api/v1/profile", "validation failures"],
+          "fullName": "PUT /api/v1/profile validation failures returns 400 when goal is invalid",
+          "status": "passed",
+          "title": "returns 400 when goal is invalid",
+          "duration": 2.1619999999999777,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["PUT /api/v1/profile", "service errors"],
+          "fullName": "PUT /api/v1/profile service errors returns 500 when upsertProfile throws an untyped error",
+          "status": "passed",
+          "title": "returns 500 when upsertProfile throws an untyped error",
+          "duration": 1.8144000000000347,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        },
+        {
+          "ancestorTitles": ["PUT /api/v1/profile", "service errors"],
+          "fullName": "PUT /api/v1/profile service errors propagates AppError status from service",
+          "status": "passed",
+          "title": "propagates AppError status from service",
+          "duration": 1.4827999999999975,
+          "failureMessages": [],
+          "meta": {},
+          "tags": []
+        }
+      ],
+      "startTime": 1781143934741,
+      "endTime": 1781143934807.483,
+      "status": "passed",
+      "message": "",
+      "name": "C:/Users/Nitiw/Projects/health_manager/backend/src/features/profile/__tests__/profile.controller.test.ts"
     }
   ]
 }
