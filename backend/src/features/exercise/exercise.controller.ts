@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { z } from 'zod';
 import { logExerciseEntry, getExerciseEntries } from './exercise.service.js';
-import { AppError, createHttpError } from '../../shared/middleware/errorHandler.js';
+import { zodValidationError } from '../../shared/utils/validation.js';
 
 const ExerciseEntrySchema = z.object({
   exercise_name: z.string().trim().min(1).max(200),
@@ -20,13 +20,6 @@ const GetEntriesQuerySchema = z.object({
     .optional(),
 });
 
-function validationError(issues: z.ZodIssue[]): AppError {
-  return createHttpError(
-    issues.map((i) => `${i.path.join('.') || 'value'}: ${i.code}`).join('; '),
-    400
-  );
-}
-
 export async function logExerciseEntryHandler(
   req: Request,
   res: Response,
@@ -34,7 +27,7 @@ export async function logExerciseEntryHandler(
 ): Promise<void> {
   try {
     const parsed = ExerciseEntrySchema.safeParse(req.body);
-    if (!parsed.success) throw validationError(parsed.error.issues);
+    if (!parsed.success) throw zodValidationError(parsed.error.issues);
 
     const entry = await logExerciseEntry(req.userId, parsed.data);
     res.status(201).json({ data: entry, message: 'Exercise entry logged', error: null });
@@ -50,7 +43,7 @@ export async function getExerciseEntriesHandler(
 ): Promise<void> {
   try {
     const parsed = GetEntriesQuerySchema.safeParse(req.query);
-    if (!parsed.success) throw validationError(parsed.error.issues);
+    if (!parsed.success) throw zodValidationError(parsed.error.issues);
 
     const result = await getExerciseEntries(req.userId, parsed.data);
     res.json({ data: result, message: 'OK', error: null });

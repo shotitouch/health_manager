@@ -9,6 +9,7 @@ import authRouter from './features/auth/auth.router.js';
 import profileRouter from './features/profile/profile.router.js';
 import foodRouter from './features/food/food.router.js';
 import exerciseRouter from './features/exercise/exercise.router.js';
+import dashboardRouter from './features/dashboard/dashboard.router.js';
 
 dotenv.config();
 
@@ -33,6 +34,7 @@ app.use('/api/v1', profileRouter);
 app.use('/api/v1', agentRouter);
 app.use('/api/v1', foodRouter);
 app.use('/api/v1', exerciseRouter);
+app.use('/api/v1', dashboardRouter);
 
 app.use(errorHandler);
 
