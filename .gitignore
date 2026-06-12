@@ -28,5 +28,8 @@ Thumbs.db
 # Local Claude Code settings (machine-specific paths/permissions)
 .claude/settings.local.json
 
+# Generated HTML plans/explanations (opened locally, not source)
+.claude/tmp/
+
 # Coverage
 coverage/

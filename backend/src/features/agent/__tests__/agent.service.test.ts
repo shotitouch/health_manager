@@ -158,6 +158,34 @@ describe('runAgentLoop', () => {
 
       expect(result.feToolCalls[0].name).toBe('show_food_input');
     });
+
+    it('sends a message list ending in a synthetic user handoff to the presenter (Anthropic rejects assistant-ending input)', async () => {
+      // mock.calls stores a live array reference that runPresenterLoop mutates after
+      // the call (it pushes its own response + tool_result ack). Snapshot at call
+      // time so we assert on what was actually sent, not the post-mutation state.
+      let presenterMessagesSnapshot: Array<{ role: string; content: unknown }> = [];
+      mockMessagesCreate
+        .mockResolvedValueOnce(ROUTER_NEEDS_WORKER)
+        .mockResolvedValueOnce(WORKER_END_TURN)
+        .mockImplementationOnce(
+          async (args: { messages: Array<{ role: string; content: unknown }> }) => {
+            presenterMessagesSnapshot = JSON.parse(JSON.stringify(args.messages));
+            return PRESENTER_SHOW_FOOD_INPUT;
+          }
+        );
+
+      await runAgentLoop(USER_MESSAGES, 'user-1');
+
+      expect(presenterMessagesSnapshot[presenterMessagesSnapshot.length - 1]).toEqual({
+        role: 'user',
+        content: [
+          {
+            type: 'text',
+            text: 'Worker findings are above. Render the appropriate view for the user now.',
+          },
+        ],
+      });
+    });
   });
 
   describe('worker loop cap', () => {

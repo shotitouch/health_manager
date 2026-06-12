@@ -32,12 +32,12 @@ src/
       agent.controller.ts
       agent.service.ts  # Calls Anthropic SDK, enforces tool-registry
       tool-registry.ts  # MASTER LIST of allowed tools (FE + MCP)
-    auth/               # JWT register/login/refresh/logout — scaffold only
-    profile/            # BMR, TDEE calculations — scaffold only
-    food/               # Food log, nutrition data — scaffold only
-    exercise/           # Exercise log, calorie burn — scaffold only
-    summary/            # Aggregate stats — scaffold only
-    dashboard/          # Daily rollup — scaffold only
+    auth/               # JWT register/login/refresh/logout
+    profile/            # BMR, TDEE calculations
+    food/               # Food log, nutrition data
+    exercise/           # Exercise log, calorie burn
+    summary/            # Aggregate stats
+    dashboard/          # Daily rollup
   shared/
     middleware/         # errorHandler.ts, auth.ts (JWT guard), logger.ts
     utils/              # Pure helpers shared across features
@@ -59,15 +59,12 @@ src/
 
 ## Database
 
-Relational (PostgreSQL). Not yet implemented.
+Relational (PostgreSQL). Not yet implemented — planned tables: `users`, `food_entries`, `exercise_entries`, `daily_log`.
 
-Tables: `users`, `food_entries`, `exercise_entries`, `daily_log`.
-
-Service functions return stub/empty data until the DB layer exists — do not implement persistence yet.
+Services currently keep data in per-process memory (lost on restart) — do not implement real persistence yet.
 
 ## Adding a New Feature
 
 1. Create `src/features/<name>/` with three standard files: `<name>.router.ts`, `<name>.controller.ts`, `<name>.service.ts`.
 2. Register its router in `src/app.ts`.
-3. If it adds FE tools, add them to `tool-registry.ts` `FE_TOOLS`. If it needs to fetch external data, add MCP tools to `MCP_TOOLS`.
-4. Add a local `CLAUDE.md` if it has non-obvious auth rules, MCP wiring, or external calls.
+3. New FE tools go through `/add-fe-tool`; MCP tools (external data) are added to `MCP_TOOLS` in `tool-registry.ts`.
