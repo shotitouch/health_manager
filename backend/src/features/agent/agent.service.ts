@@ -48,6 +48,19 @@ const PRESENTER_PROMPT_BLOCK: TextBlockParam = {
   cache_control: { type: 'ephemeral' },
 };
 
+// Claude requires the conversation to end with a user message before generating a new
+// assistant turn (no assistant-message prefill). The Worker's final reply is assistant
+// text, so this synthetic turn hands off to the Presenter.
+const WORKER_TO_PRESENTER_HANDOFF: MessageParam = {
+  role: 'user',
+  content: [
+    {
+      type: 'text',
+      text: 'Worker findings are above. Render the appropriate view for the user now.',
+    },
+  ],
+};
+
 // ---------------------------------------------------------------------------
 // Router — forced single tool call on cheap Haiku model.
 // ---------------------------------------------------------------------------
@@ -283,6 +296,8 @@ async function runWorkerLoop(messages: MessageParam[], userId: string): Promise<
 
     currentMessages.push({ role: 'user', content: toolResults });
   }
+
+  currentMessages.push(WORKER_TO_PRESENTER_HANDOFF);
 
   return currentMessages;
 }
