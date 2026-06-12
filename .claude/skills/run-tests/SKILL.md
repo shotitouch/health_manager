@@ -122,11 +122,3 @@ Read `backend/coverage/coverage-summary.json` and add the `coverage` field to th
 ```
 
 Omit this field entirely when `--coverage` was not passed.
-
-## Report contract
-
-The JSON report is designed to be consumed as a `tool_result` block by the main `runAgentLoop`. The main agent uses it to:
-
-- Show the user a `display_message` with pass/fail summary
-- Decide whether to invoke further tools (e.g. re-run after a fix)
-- Surface gap recommendations from the test-runner agent audit

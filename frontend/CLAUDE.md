@@ -3,6 +3,8 @@
 ## Setup
 
 ```bash
+npm install
+npm run dev       # http://localhost:5173
 npm run build     # Production build to dist/
 npm run preview   # Serve production build locally
 ```
@@ -13,7 +15,7 @@ The frontend package.json is not yet initialized. When creating it, the expected
 
 `AgentChat` sends the user message to `POST /api/v1/agent`. The response contains a `feToolCalls` array (e.g., `[{ name: "show_dashboard", input: { ... } }]`). The chat pane and the rendered component live side-by-side.
 
-See `docs/ux-baseline.md` for layout, shell, route structure, auth screens, and state definitions.
+See `docs/ux-baseline.md` (repo root) for layout, shell, route structure, auth screens, and state definitions.
 
 ## Structure
 
@@ -39,7 +41,6 @@ src/
 
 - Each feature exports its renderable component as default from its folder's `index.ts`.
 - `ToolExecutor` imports from these barrels — it is the only file that knows the full component set.
-- `ToolExecutor`'s `TOOL_MAP` must stay a static object — never add to it at runtime or from external input.
 - Feature components receive `input` props and an optional `onResult` callback — see Component Contract below.
 - `shared/components/` must not import from any feature folder.
 - All API calls live in a feature's `api.ts` file, not inside components.
@@ -69,7 +70,3 @@ Call `onResult` only in response to a user action (e.g. form submit) — never i
 - Protected routes use a `<PrivateRoute>` wrapper in `App.tsx` that redirects to `/login` if no token
 - Only the `auth` feature writes to `localStorage` — no other feature touches auth state
 - A shared `http()` utility in `shared/utils/http.ts` handles token injection — all feature `api.ts` files call it instead of raw `fetch`
-
-## Adding a New FE Tool
-
-Use the `/add-fe-tool` skill — it scaffolds the component, barrel export, and `TOOL_MAP` entry in one step.

@@ -27,7 +27,7 @@ Define and get approval on:
 - Zod validation rules
 - Service behavior and any external calls
 
-Exit plan mode before writing any code or tests.
+Write the markdown plan file as normal GFM (headings + tables) with sections for Route, Request, Response, Validation, Service, Files. The HTML version required before `ExitPlanMode` (see root `CLAUDE.md` → HTML Review Docs) covers the same topics; its flow diagram is Router → Controller → Service [→ external].
 
 ---
 
@@ -35,7 +35,7 @@ Exit plan mode before writing any code or tests.
 
 Create test files **before any implementation exists**:
 
-- `backend/src/features/<name>/__tests__/<name>.controller.test.ts` — HTTP layer: valid body → 200, each required field missing → 400, service error → 500
+- `backend/src/features/<name>/__tests__/<name>.controller.test.ts` — HTTP layer: valid body → 200, each required field missing → 400, service error → 500; assert responses match the planned `{ data, message, error }` shape
 - `backend/src/features/<name>/__tests__/<name>.service.test.ts` — only if the service has branching logic worth testing independently; otherwise controller tests alone are sufficient
 
 Mock the service in controller tests with `vi.mock('../<name>.service.js')`. Follow the patterns in `backend/src/features/agent/__tests__/` (class mock for SDK, `vi.hoisted` for shared mock functions, `beforeEach` resets).
@@ -56,22 +56,7 @@ If tests pass without implementation, the test contract is wrong — revisit ste
 
 ### 4. Implement
 
-Create the three standard files in `backend/src/features/<name>/`:
-
-```
-<name>.router.ts     — mount route, import controller handler
-<name>.controller.ts — parse + validate with Zod, call service, respond
-<name>.service.ts    — framework-agnostic business logic
-```
-
-Follow `backend/CLAUDE.md` for all conventions (controller/service split, Zod boundary, error handling).
-
-Register the router in `backend/src/app.ts`:
-
-```ts
-import <name>Router from './features/<name>/<name>.router.js';
-app.use('/api/v1', <name>Router);
-```
+Create the feature's router/controller/service files and register the router in `app.ts`, following `backend/CLAUDE.md` ("Adding a New Feature" + conventions: controller/service split, Zod boundary, error handling).
 
 ---
 

@@ -4,40 +4,32 @@ The agentic shell — not a domain feature. Other features are rendered inside i
 
 ## Files
 
+Exists today:
+
 ```
 features/agent/
+  ToolExecutor.tsx      # Receives feToolCalls array, maps each to a component and renders it
+  AskClarification.tsx  # ask_clarification tool component
+  index.ts              # Barrel export
+```
+
+Planned (not yet written):
+
+```
   AgentChat.tsx     # Input bar + conversation history; sends to POST /api/v1/agent
-  ToolExecutor.tsx  # Receives feToolCalls array, maps each to a component and renders it
   useAgent.ts       # Conversation state, calls api.ts, exposes { messages, send, loading }
   api.ts            # fetch wrapper for POST /api/v1/agent
 ```
 
 ## ToolExecutor — TOOL_MAP
 
-`TOOL_MAP` is the single authoritative mapping of tool name → React component. It is a plain static object — no dynamic imports or eval.
+`TOOL_MAP` in `ToolExecutor.tsx` is the single authoritative mapping of tool name → React component (the code is the source of truth for its entries):
 
-This snapshot will drift — the code is the source of truth.
+- Plain static object — no dynamic imports or eval
+- Each string key must exactly match the `name` field in `tool-registry.ts`
+- Unknown tool names are logged with `console.warn` and skipped — never throw or crash
 
-```ts
-const TOOL_MAP = {
-  show_dashboard: Dashboard,
-  show_profile_form: ProfileForm,
-  show_food_input: FoodInput,
-  show_food_log: FoodLog,
-  show_exercise_input: ExerciseInput,
-  show_exercise_log: ExerciseLog,
-  show_health_summary: HealthSummary,
-  display_message: MessageDisplay,
-};
-```
-
-Unknown tool names are logged with `console.warn` and skipped — never throw or crash.
-
-## Adding a New Tool
-
-Use the `/add-fe-tool` skill — the string key in `TOOL_MAP` must exactly match the `name` field in `tool-registry.ts`.
-
-## useAgent Hook
+## useAgent Hook (planned contract)
 
 ```ts
 const { messages, send, loading } = useAgent();
