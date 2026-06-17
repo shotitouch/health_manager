@@ -40,6 +40,7 @@ src/
     dashboard/          # Daily rollup
   shared/
     middleware/         # errorHandler.ts, auth.ts (JWT guard), logger.ts
+    ports/              # Thin re-export seams into feature services (see its CLAUDE.md)
     utils/              # Pure helpers shared across features
   app.ts                # Express setup, mounts all routers
 ```

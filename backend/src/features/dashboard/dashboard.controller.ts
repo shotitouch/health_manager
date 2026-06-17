@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { z } from 'zod';
 import { getDashboard } from './dashboard.service.js';
-import { createHttpError } from '../../shared/middleware/errorHandler.js';
 import { zodValidationError } from '../../shared/utils/validation.js';
 
 const DashboardQuerySchema = z.object({
@@ -20,10 +19,7 @@ export async function getDashboardHandler(
     const parsed = DashboardQuerySchema.safeParse(req.query);
     if (!parsed.success) throw zodValidationError(parsed.error.issues);
 
-    const authHeader = req.headers.authorization;
-    if (!authHeader) throw createHttpError('Unauthorized', 401);
-
-    const result = await getDashboard(authHeader, parsed.data);
+    const result = await getDashboard(req.userId, parsed.data);
     res.json({ data: result, message: 'OK', error: null });
   } catch (err) {
     next(err);

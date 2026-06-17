@@ -59,13 +59,10 @@ describe('GET /api/v1/dashboard', () => {
       });
     });
 
-    it('calls getDashboard with the auth header and no date when omitted', async () => {
-      await request(app).get('/api/v1/dashboard').set('Authorization', 'Bearer test-token');
+    it('calls getDashboard with the authenticated user id and no date when omitted', async () => {
+      await request(app).get('/api/v1/dashboard');
 
-      expect(mockGetDashboard).toHaveBeenCalledWith(
-        'Bearer test-token',
-        expect.objectContaining({})
-      );
+      expect(mockGetDashboard).toHaveBeenCalledWith(STUB_USER_ID, expect.objectContaining({}));
       const [, input] = mockGetDashboard.mock.calls[0];
       expect(input.date).toBeUndefined();
     });
@@ -79,17 +76,9 @@ describe('GET /api/v1/dashboard', () => {
     });
 
     it('calls getDashboard with the parsed date when provided', async () => {
-      await request(app)
-        .get('/api/v1/dashboard?date=2026-06-10')
-        .set('Authorization', 'Bearer test-token');
+      await request(app).get('/api/v1/dashboard?date=2026-06-10');
 
-      expect(mockGetDashboard).toHaveBeenCalledWith('Bearer test-token', { date: '2026-06-10' });
-    });
-
-    it('forwards the exact Authorization header value to the service', async () => {
-      await request(app).get('/api/v1/dashboard').set('Authorization', 'Bearer abc.def.ghi');
-
-      expect(mockGetDashboard).toHaveBeenCalledWith('Bearer abc.def.ghi', expect.anything());
+      expect(mockGetDashboard).toHaveBeenCalledWith(STUB_USER_ID, { date: '2026-06-10' });
     });
   });
 
@@ -108,13 +97,6 @@ describe('GET /api/v1/dashboard', () => {
         .set('Authorization', 'Bearer test-token');
 
       expect(res.status).toBe(400);
-    });
-
-    it('returns 401 when no Authorization header is present', async () => {
-      const res = await request(app).get('/api/v1/dashboard');
-
-      expect(res.status).toBe(401);
-      expect(mockGetDashboard).not.toHaveBeenCalled();
     });
   });
 
