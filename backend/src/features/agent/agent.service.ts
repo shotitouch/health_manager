@@ -354,7 +354,12 @@ export interface AgentResult {
 
 export async function runAgentLoop(messages: MessageParam[], userId: string): Promise<AgentResult> {
   const route = await runRouter(messages, userId);
-  const messagesForPresenter = route.skipWorker ? messages : await runWorkerLoop(messages, userId);
+  const workerMessages = route.skipWorker ? null : await runWorkerLoop(messages, userId);
+  // Pass only original conversation + Worker's final synthesis + handoff to Presenter.
+  // Strips intermediate tool_use/tool_result turns — the Worker already distilled those into its final text response.
+  const messagesForPresenter = workerMessages
+    ? [...messages, workerMessages.at(-2)!, workerMessages.at(-1)!]
+    : messages;
   const { feToolCalls, messages: finalMessages } = await runPresenterLoop(
     messagesForPresenter,
     userId

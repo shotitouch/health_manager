@@ -186,6 +186,32 @@ describe('runAgentLoop', () => {
         ],
       });
     });
+
+    it('passes only original messages + Worker synthesis to Presenter, not intermediate tool calls', async () => {
+      let presenterSnapshot: Array<{ role: string; content: unknown }> = [];
+      mockMessagesCreate
+        .mockResolvedValueOnce(ROUTER_NEEDS_WORKER)
+        .mockResolvedValueOnce(WORKER_LOOPS_GET_USER_LOG) // worker call 1: tool_use
+        .mockResolvedValueOnce(WORKER_END_TURN) // worker call 2: finishes
+        .mockImplementationOnce(
+          async (args: { messages: Array<{ role: string; content: unknown }> }) => {
+            presenterSnapshot = JSON.parse(JSON.stringify(args.messages));
+            return PRESENTER_SHOW_FOOD_INPUT;
+          }
+        );
+
+      await runAgentLoop(USER_MESSAGES, 'user-1');
+
+      // original user msg + Worker synthesis + handoff = 3 messages
+      expect(presenterSnapshot).toHaveLength(3);
+      // no intermediate tool_result turns in Presenter context
+      const hasToolResult = presenterSnapshot.some(
+        (m) =>
+          Array.isArray(m.content) &&
+          (m.content as Array<{ type: string }>).some((b) => b.type === 'tool_result')
+      );
+      expect(hasToolResult).toBe(false);
+    });
   });
 
   describe('worker loop cap', () => {

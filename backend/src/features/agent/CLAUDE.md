@@ -40,6 +40,8 @@ Tool lists and descriptions live in `tool-registry.ts` — read them there.
 4. Presenter (Sonnet, FE_TOOLS only, tool_choice: 'any'): one call, must return ≥1 FE tool_use
    (else 500). FE calls are NOT executed server-side — returned as feToolCalls, plus synthetic
    tool_result acks so the returned history stays valid for the next turn.
+   NOTE: Presenter receives only [original messages + Worker's final text synthesis + HANDOFF] —
+   intermediate tool_use/tool_result turns from the Worker loop are stripped before handoff.
 ```
 
 Every Anthropic call includes `metadata: { user_id: userId }` for per-user cost tracking.
