@@ -88,4 +88,10 @@ Apply all Critical and High findings. If any code changes result, go to step 8.
 
 Run `/run-tests <name>`, then `npm run typecheck` (from `backend/`).
 
-Both must pass. If not, fix and repeat this step. Once green with no review findings outstanding, the feature is done.
+Both must pass. If not, fix and repeat this step. Once green with no review findings outstanding, proceed to step 9.
+
+---
+
+### 9. Update decision docs
+
+If this feature introduced a non-obvious architectural or process decision, or its implementation changes or resolves an entry already recorded, update the relevant `docs/decisions/<topic>.md` (see `docs/decisions/README.md` for format and the update-in-place convention). The feature is done once this is current.

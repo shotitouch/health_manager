@@ -48,6 +48,7 @@ All backend features are implemented with in-memory storage (no DB yet). The fro
 - **After any implementation**: run `/code-review` before considering the task done.
 - **After any changes to `agent/`, `auth/`, or request validation code**: run `/security-review`.
 - **Model selection**: before entering plan mode, run `/model opus` (the built-in Plan subagent inherits the main session's model). After a plan is approved, run `/model sonnet` for the implementation phase. The custom review/audit subagents (`code-reviewer`, `security-auditor`, `prompt-engineer`, `test-runner`) have their models pinned in their definitions and are unaffected by `/model`.
+- **Recording decisions**: non-obvious architectural/process choices live in `docs/decisions/<topic>.md` (index + format in `docs/decisions/README.md`). When a change affects an existing entry, update it in place with a dated `Superseded`/`Resolved`/`Merged into` annotation — don't leave it stale.
 
 ## HTML Review Docs
 
@@ -60,7 +61,7 @@ Plans and explanation docs are presented as self-contained HTML files in `.claud
 - `<details><summary>Alternatives considered</summary>...</details>` for anything weighed and rejected
 - Open it for review: `Start-Process (Resolve-Path ".claude/tmp/<file>.html").Path`
 
-**Plan mode:** before calling `ExitPlanMode`, write the plan to `.claude/tmp/<slug>-plan.html` per the above and open it. Note in the markdown plan file (read by the `ExitPlanMode` approval UI) that the HTML version was opened in the browser.
+**Plan mode:** before calling `ExitPlanMode`, write the plan to `.claude/tmp/<plan-slug>-plan.html` per the above. `<plan-slug>` **must** be the basename of the harness-assigned plan markdown file (e.g. plan file `…/.claude/plans/foo-bar.md` → HTML `.claude/tmp/foo-bar-plan.html`) — do **not** invent a topic-based name. Do **not** open it yourself: the `PreToolUse` hook (`.claude/hooks/require-plan-html.ps1`) is the sole opener — on `ExitPlanMode` it blocks until the matching HTML exists and is at least as new as the plan markdown (rejecting a mismatched name or a stale HTML from a revised plan), then `Start-Process`-opens it for you before approval proceeds. Note in the markdown plan file (read by the `ExitPlanMode` approval UI) that the HTML version is opened in the browser.
 
 ## CLAUDE.md Hierarchy
 
