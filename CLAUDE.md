@@ -41,6 +41,21 @@ All backend features are implemented with in-memory storage (no DB yet). The fro
 - Never import across features — cross-feature code belongs in `src/shared/` only
 - Stay within the locked feature set: `auth`, `agent`, `profile`, `food`, `exercise`, `dashboard`, `summary`
 
+## Code Minimalism
+
+Before writing code, stop at the first rung that holds:
+
+1. Does this need to exist? → skip (YAGNI)
+2. Stdlib does it? → use it
+3. Native platform feature? → use it
+4. Already-installed dependency does it? → use it
+5. One line? → one line
+6. Only then: minimum code that works
+
+No unrequested abstractions — no interface with one implementation, no factory for one product, no config for a value that never changes. Deletion over addition. Shortest working diff wins.
+
+This applies to code only — explanations, plans, and review docs follow their own rules above.
+
 ## Workflow Rules
 
 - **Adding a new FE tool**: always use the `/add-fe-tool` skill — it scaffolds tool-registry, component, ToolExecutor TOOL_MAP, and barrel export in one step. Never add FE tools manually.
