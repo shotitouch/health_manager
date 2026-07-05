@@ -1,7 +1,7 @@
+import './env.js';
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import dotenv from 'dotenv';
 import { errorHandler } from './shared/middleware/errorHandler.js';
 import { logger } from './shared/middleware/logger.js';
 import agentRouter from './features/agent/agent.router.js';
@@ -11,8 +11,6 @@ import foodRouter from './features/food/food.router.js';
 import exerciseRouter from './features/exercise/exercise.router.js';
 import dashboardRouter from './features/dashboard/dashboard.router.js';
 import summaryRouter from './features/summary/summary.router.js';
-
-dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;

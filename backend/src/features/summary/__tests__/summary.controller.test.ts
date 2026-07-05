@@ -73,10 +73,10 @@ describe('GET /api/v1/summary', () => {
       });
     });
 
-    it('calls getSummary with the auth header and no from/to when omitted', async () => {
-      await request(app).get('/api/v1/summary').set('Authorization', 'Bearer test-token');
+    it('calls getSummary with the authenticated user id and no from/to when omitted', async () => {
+      await request(app).get('/api/v1/summary');
 
-      expect(mockGetSummary).toHaveBeenCalledWith('Bearer test-token', expect.objectContaining({}));
+      expect(mockGetSummary).toHaveBeenCalledWith(STUB_USER_ID, expect.objectContaining({}));
       const [, input] = mockGetSummary.mock.calls[0];
       expect(input.from).toBeUndefined();
       expect(input.to).toBeUndefined();
@@ -91,20 +91,12 @@ describe('GET /api/v1/summary', () => {
     });
 
     it('calls getSummary with the parsed from/to when provided', async () => {
-      await request(app)
-        .get('/api/v1/summary?from=2026-06-05&to=2026-06-11')
-        .set('Authorization', 'Bearer test-token');
+      await request(app).get('/api/v1/summary?from=2026-06-05&to=2026-06-11');
 
-      expect(mockGetSummary).toHaveBeenCalledWith('Bearer test-token', {
+      expect(mockGetSummary).toHaveBeenCalledWith(STUB_USER_ID, {
         from: '2026-06-05',
         to: '2026-06-11',
       });
-    });
-
-    it('forwards the exact Authorization header value to the service', async () => {
-      await request(app).get('/api/v1/summary').set('Authorization', 'Bearer abc.def.ghi');
-
-      expect(mockGetSummary).toHaveBeenCalledWith('Bearer abc.def.ghi', expect.anything());
     });
   });
 
@@ -151,13 +143,6 @@ describe('GET /api/v1/summary', () => {
         .set('Authorization', 'Bearer test-token');
 
       expect(res.status).toBe(400);
-      expect(mockGetSummary).not.toHaveBeenCalled();
-    });
-
-    it('returns 401 when no Authorization header is present', async () => {
-      const res = await request(app).get('/api/v1/summary');
-
-      expect(res.status).toBe(401);
       expect(mockGetSummary).not.toHaveBeenCalled();
     });
   });

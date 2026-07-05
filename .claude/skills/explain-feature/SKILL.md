@@ -4,74 +4,78 @@ description: Deep, ground-up explanation of a feature, module, or file — dynam
 argument-hint: <path, feature name, or area to explain>
 ---
 
-Teach the user how `$ARGUMENTS` works, starting from the widest view and drilling into specifics. For every notable technique or design choice, explain it **in general** (the underlying concept, why it's used) and **specifically** (how/where it appears here, file:line, and what would break or be unsafe without it).
+Teach the user how `$ARGUMENTS` works, from the widest view down to specifics. For every notable technique or design choice, explain it **in general** (the underlying concept, why it's used) and **specifically** (how/where it appears here, file:line, and what would break or be unsafe without it).
 
 ## Step 1: Discover what to read
 
 Don't assume a fixed file layout — figure it out for this project and this argument.
 
-- If `$ARGUMENTS` looks like a file path, read it first. Then:
-  - Grep for what imports it / what it imports, to find direct collaborators
-  - Look for a matching test file (common patterns: `__tests__/`, `*.test.*`, `*.spec.*`, near the file or in a parallel test tree)
-- If `$ARGUMENTS` is a feature/module name or directory, Glob broadly to find where it actually lives — try multiple plausible layouts (e.g. `src/features/<name>/`, `src/<name>/`, `<name>/`, `**/<name>*`). Don't give up after one pattern.
-- Read every implementation file you find for this feature/module, plus its tests.
-- Look for project-convention docs (`CLAUDE.md`, `AGENTS.md`, `README.md`, `CONTRIBUTING.md`, etc.) at the feature level, then walk upward through parent directories to the repo root, reading any that exist — these describe the conventions this code is following.
-- Find one sibling module for comparison: Glob the parent directory for other items at the same level, pick one that looks structurally similar, and read it. This separates "this is how the project always does it" from "this is a choice specific to this feature."
-- Identify the "shape" of what you're explaining — an HTTP API feature, a UI component, a CLI command, a utility/library module, a data pipeline, a config file, etc. — and let that shape guide which sections below actually apply.
+- If `$ARGUMENTS` is a file path: read it, grep for what imports it / what it imports, and find its test file (`__tests__/`, `*.test.*`, `*.spec.*`, nearby or in a parallel tree).
+- If it's a feature/module name or directory: Glob multiple plausible layouts (`src/features/<name>/`, `src/<name>/`, `<name>/`, `**/<name>*`) — don't give up after one pattern.
+- Read every implementation file for the feature, plus its tests.
+- Read convention docs (`CLAUDE.md`, `AGENTS.md`, `README.md`, `CONTRIBUTING.md`, …) at the feature level and upward to the repo root.
+- Read one structurally similar sibling module — to separate "how the project always does it" from "a choice specific to this feature".
+- Identify the "shape" of the thing (HTTP API feature, UI component, CLI command, library module, data pipeline, config, …) and let it guide which sections below apply.
 
 ## Step 2: Identify what's worth explaining
 
-Scan what you read for these categories. Only write sections for what's actually present — don't pad with categories that don't apply.
+Scan for these categories; only write sections for what's actually present — don't pad:
 
-- **Architecture / layering** — why the code is split into the files/modules it's split into, and what each one owns
-- **Validation / type safety** — how input is checked or typed, and what specific bugs or attacks each check prevents
+- **Architecture / layering** — why this file split, what each file owns
+- **Validation / type safety** — what each check prevents (bugs or attacks)
 - **Error handling** — how failures propagate and get reported
-- **Auth / security-sensitive logic** — anything that checks identity, permissions, or trust boundaries
-- **State / persistence** — how data is stored, cached, or kept across calls
-- **Notable algorithms or non-obvious logic** — anywhere "why this approach" isn't self-evident from the code
-- **Tests** — what's covered, how dependencies are isolated (mocking/stubbing), what the test structure reveals about the design
-- **Wiring** — how this module gets registered/connected into the rest of the app (routers, DI containers, plugin registries, entry points, etc.)
+- **Auth / security-sensitive logic** — identity, permissions, trust boundaries
+- **State / persistence** — storage, caching, data kept across calls
+- **Notable algorithms or non-obvious logic** — where "why this approach" isn't self-evident
+- **Tests** — coverage, dependency isolation, what the structure reveals about the design
+- **Wiring** — how the module gets registered/connected (routers, DI, registries, entry points)
 
 ## Step 3: Write the explanation
 
-Use this structure. Generate the content of each section from what you actually found — there is no fixed list of patterns or checklist items to fill in.
+Write a self-contained HTML file following the root `CLAUDE.md` "HTML Review Docs" convention — tables and an SVG diagram make the structure scannable instead of forcing a top-to-bottom read of prose.
+
+1. Derive a filesystem-safe slug from `$ARGUMENTS` (lowercase; `/`, `.`, spaces → `-`).
+2. Write to `.claude/tmp/<slug>-explanation.html` and open it per the convention.
+3. In the chat, give a short plain-text recap (5-10 lines): what the feature does, the file layout, and the transferable patterns checklist.
+
+Generate each section's content from what you actually found — there is no fixed list of patterns or checklist items to fill in.
 
 ### 1. Big Picture
 
-- What problem does this solve, in plain language?
-- Where does it sit in the system? Trace one request/call/data flow from entry point to result.
-- How is it triggered/invoked, and how is the result wired back to the rest of the app?
+- What problem does this solve, in plain language? — short `<p>` fragments
+- Where does it sit in the system? Trace one request/call/data flow from entry point to result as an inline `<svg>` (boxes + arrows, ~700x150 viewBox, each box labeled `file:line`)
+- How is it triggered, and how does the result wire back into the app?
 
 ### 2. Layout
 
-- One line per file/module: what it owns and why it's separate from the others.
-- If there's a layering pattern (e.g. router/controller/service, component/hook/store), name it and explain the separation of concerns it gives you.
+- `<table>`, one row per file/module — columns: File, Owns, Why separate
+- If there's a layering pattern (router/controller/service, component/hook/store, …), name it in a `<p>` above and explain the separation of concerns it gives you
 
 ### 3. Walkthrough by pattern
 
-For each item identified in Step 2, write a block:
+For each item from Step 2, a `<section>` with an `<h3>` title and a `<dl>`:
 
-- **In general:** explain the underlying concept from scratch — assume the reader knows the language but maybe not this pattern
-- **In this code (`file:line`):** quote the actual code and explain the specific choices (why these values, why this structure)
-- **Without this:** one or two sentences on what would break, leak, or become unmaintainable if this were skipped or done naively
+- **In general**: the concept from scratch — assume the reader knows the language but maybe not this pattern
+- **In this code (`file:line`)**: quote the actual code in `<pre><code>`, explain the specific choices (why these values, why this structure)
+- **Without this**: one or two sentences on what would break, leak, or rot if skipped or done naively
 
-Order these from most architecturally significant to most local/detail-level.
+Order from most architecturally significant to most local.
 
 ### 4. Tests
 
-- What's covered, grouped by outcome (happy path / invalid input / error propagation, or whatever grouping the actual tests use)
-- How are dependencies isolated (mocks, fakes, in-memory stand-ins)? Why does that matter for what's being tested?
-- Anything the test structure reveals about the design (e.g. tests written before implementation, contracts the implementation must satisfy)
+- `<table>` grouping coverage by outcome (happy path / invalid input / error propagation, or the grouping the tests use) — columns: Case, File, Outcome
+- How are dependencies isolated (mocks, fakes, in-memory stand-ins) and why does that matter here? — short `<p>`
+- Anything the test structure reveals about the design (tests-first, contracts the implementation must satisfy)
 
 ### 5. Wiring
 
-- How does this module get connected to the rest of the system? Quote the registration point.
-- If order/placement matters (e.g. middleware order, plugin registration order), explain why.
+- Quote the registration point in `<pre><code>`
+- If order/placement matters (middleware order, plugin registration), explain why in a `<p>`
 
 ### 6. Transferable Patterns — Checklist
 
-A bullet list of the patterns from Step 3 that generalize beyond this specific feature, phrased as reusable advice ("Do X when Y") — generated from what was actually found, not copied from a template.
+A `<ul>` of the Step 3 patterns that generalize beyond this feature, phrased as reusable advice ("Do X when Y").
 
 ## Tone
 
-Write as a senior engineer explaining to a capable junior. Be direct, use short sentences, quote real code with file:line references. Don't hedge ("you might want to") — state why each choice is correct or what tradeoff it makes. The goal is for the reader to recognize these patterns unprompted in future code, not to memorize this specific feature.
+Senior engineer explaining to a capable junior. Direct, short sentences, real code with file:line references. Don't hedge ("you might want to") — state why each choice is correct or what tradeoff it makes. The goal is for the reader to recognize these patterns unprompted in future code, not to memorize this feature.

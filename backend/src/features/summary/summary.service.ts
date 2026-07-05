@@ -1,4 +1,6 @@
-import { createHttpError } from '../../shared/middleware/errorHandler.js';
+import { getProfile } from '../../shared/ports/profile.port.js';
+import { getFoodEntries } from '../../shared/ports/food.port.js';
+import { getExerciseEntries } from '../../shared/ports/exercise.port.js';
 
 export interface SummaryInput {
   from?: string;
@@ -27,10 +29,6 @@ export interface SummaryData {
   tdee: number | null;
 }
 
-function getBaseUrl(): string {
-  return process.env.API_BASE_URL || `http://localhost:${process.env.PORT || 3001}`;
-}
-
 function addDays(date: string, delta: number): string {
   const d = new Date(`${date}T00:00:00.000Z`);
   d.setUTCDate(d.getUTCDate() + delta);
@@ -52,66 +50,19 @@ function round1(value: number): number {
   return Math.round(value * 10) / 10;
 }
 
-interface ProfileTotals {
-  bmr: number;
-  tdee: number;
-}
-
-interface FoodEntryLite {
-  calories: number;
-  protein_g: number | null;
-  logged_at: string;
-}
-
-interface ExerciseEntryLite {
-  calories_burned: number;
-  logged_at: string;
-}
-
-async function fetchProfile(authHeader: string): Promise<ProfileTotals | null> {
-  const res = await fetch(`${getBaseUrl()}/api/v1/profile`, {
-    headers: { Authorization: authHeader },
-  });
-  if (res.status === 404) return null;
-  if (!res.ok) throw createHttpError('Failed to fetch profile data', 502);
-
-  const body = (await res.json()) as { data: { profile: ProfileTotals } };
-  return { bmr: body.data.profile.bmr, tdee: body.data.profile.tdee };
-}
-
-async function fetchFoodEntries(authHeader: string): Promise<FoodEntryLite[]> {
-  const res = await fetch(`${getBaseUrl()}/api/v1/food/entries`, {
-    headers: { Authorization: authHeader },
-  });
-  if (!res.ok) throw createHttpError('Failed to fetch food data', 502);
-
-  const body = (await res.json()) as { data: { entries: FoodEntryLite[] } };
-  return body.data.entries;
-}
-
-async function fetchExerciseEntries(authHeader: string): Promise<ExerciseEntryLite[]> {
-  const res = await fetch(`${getBaseUrl()}/api/v1/exercise/entries`, {
-    headers: { Authorization: authHeader },
-  });
-  if (!res.ok) throw createHttpError('Failed to fetch exercise data', 502);
-
-  const body = (await res.json()) as { data: { entries: ExerciseEntryLite[] } };
-  return body.data.entries;
-}
-
-export async function getSummary(authHeader: string, input: SummaryInput): Promise<SummaryData> {
+export async function getSummary(userId: string, input: SummaryInput): Promise<SummaryData> {
   const to = input.to ?? new Date().toISOString().slice(0, 10);
   const from = input.from ?? addDays(to, -6);
   const days = countDays(from, to);
 
-  const [profile, foodEntries, exerciseEntries] = await Promise.all([
-    fetchProfile(authHeader),
-    fetchFoodEntries(authHeader),
-    fetchExerciseEntries(authHeader),
+  const [profile, food, exercise] = await Promise.all([
+    getProfile(userId),
+    getFoodEntries(userId, {}),
+    getExerciseEntries(userId, {}),
   ]);
 
-  const foodInRange = foodEntries.filter((e) => inRange(e.logged_at, from, to));
-  const exerciseInRange = exerciseEntries.filter((e) => inRange(e.logged_at, from, to));
+  const foodInRange = food.entries.filter((e) => inRange(e.logged_at, from, to));
+  const exerciseInRange = exercise.entries.filter((e) => inRange(e.logged_at, from, to));
 
   const consumedTotal = foodInRange.reduce((sum, e) => sum + e.calories, 0);
   const proteinTotal = foodInRange.reduce((sum, e) => sum + (e.protein_g ?? 0), 0);

@@ -8,9 +8,7 @@ Create or review the .md file at $ARGUMENTS following this concept.
 
 ## Core principle
 
-Every file in this project is a **context injection mechanism**. The only question when deciding where content belongs is: **when does this context need to be active?**
-
-If content doesn't need to be active at a given injection point, it doesn't belong in that file — no matter how important it is.
+Every file in this project is a **context injection mechanism**. The only question when deciding where content belongs is: **when does this context need to be active?** If it doesn't need to be active at a given injection point, it doesn't belong in that file — no matter how important it is.
 
 ## The injection points
 
@@ -23,23 +21,13 @@ If content doesn't need to be active at a given injection point, it doesn't belo
 | Every time this agent runs, regardless of task | `agents/<name>.md`                  |
 | Only when this specific task is invoked        | `skills/<name>.md`                  |
 
-**Rules without `paths:`** behave identically to root CLAUDE.md — use only to split a root CLAUDE.md that has grown too long, not as a separate concept.
-
-**Rules with `paths:`** are more granular than a local CLAUDE.md: context loads only when a matching file is accessed, not for the whole session within a folder. Use for content irrelevant unless working on a specific file type (e.g. testing conventions scoped to `**/*.test.ts`).
-
-**Skill exception:** A skill can also exist purely to make something user-invocable via `/`, even with minimal procedure.
+**Rules without `paths:`** (no `.claude/rules/` directory exists yet) behave identically to root CLAUDE.md — use only to split a root file grown too long. **Rules with `paths:`** load only when a matching file is accessed (finer than a local CLAUDE.md) — use for content irrelevant unless working on a specific file type (e.g. testing conventions scoped to `**/*.test.ts`). **Skill exception:** a skill can exist purely to make something user-invocable via `/`, even with minimal procedure.
 
 ## Rules that follow
 
 **No duplication** — if a parent file already injects this context, don't repeat it in a child. The child only adds what the parent doesn't cover.
 
-**Scope ownership** — content belongs in the narrowest file whose entire audience needs it:
-
-- All FE features need it, but not BE → `frontend/CLAUDE.md`, not root
-- Only one feature needs it → that feature's `CLAUDE.md`
-- Both FE and BE need it → root `CLAUDE.md`
-
-If content is broader than its audience, move it down. If narrower, move it up.
+**Scope ownership** — content belongs in the narrowest file whose entire audience needs it (all FE but not BE → `frontend/CLAUDE.md`; one feature → that feature's `CLAUDE.md`; both sides → root). If content is broader than its audience, move it down; if narrower, move it up.
 
 **Agent vs skill** — an agent file is who the agent always is; a skill file is what it does right now. Output format, task steps, and criteria belong in the skill, not the agent.
 

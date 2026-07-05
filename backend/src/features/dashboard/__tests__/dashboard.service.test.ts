@@ -1,67 +1,53 @@
-import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { vi, describe, it, expect, beforeEach } from 'vitest';
 import { getDashboard } from '../dashboard.service.js';
 
-const AUTH_HEADER = 'Bearer test-token';
+vi.mock('../../../shared/ports/profile.port.js', () => ({
+  getProfile: vi.fn(),
+}));
+vi.mock('../../../shared/ports/food.port.js', () => ({
+  getFoodEntries: vi.fn(),
+}));
+vi.mock('../../../shared/ports/exercise.port.js', () => ({
+  getExerciseEntries: vi.fn(),
+}));
 
-function jsonResponse(status: number, body: unknown) {
-  return {
-    ok: status >= 200 && status < 300,
-    status,
-    json: async () => body,
-  };
-}
+import { getProfile } from '../../../shared/ports/profile.port.js';
+import { getFoodEntries } from '../../../shared/ports/food.port.js';
+import { getExerciseEntries } from '../../../shared/ports/exercise.port.js';
 
-const PROFILE_FOUND = jsonResponse(200, {
-  data: { profile: { bmr: 1500, tdee: 2200 } },
-  message: 'OK',
-  error: null,
-});
+const mockGetProfile = vi.mocked(getProfile);
+const mockGetFoodEntries = vi.mocked(getFoodEntries);
+const mockGetExerciseEntries = vi.mocked(getExerciseEntries);
 
-const PROFILE_NOT_FOUND = jsonResponse(404, {
-  data: null,
-  message: 'Profile not found',
-  error: null,
-});
+const USER_ID = 'user-123';
 
-const FOOD_TOTALS = jsonResponse(200, {
-  data: { entries: [], total_calories: 1800, total_protein_g: 90 },
-  message: 'OK',
-  error: null,
-});
+const PROFILE_FOUND = {
+  userId: USER_ID,
+  age: 30,
+  sex: 'male' as const,
+  weight_kg: 80,
+  height_cm: 180,
+  activity_level: 'moderate' as const,
+  bmr: 1500,
+  tdee: 2200,
+};
 
-const EXERCISE_TOTALS = jsonResponse(200, {
-  data: { entries: [], total_calories_burned: 300, total_duration_min: 30 },
-  message: 'OK',
-  error: null,
-});
-
-const UPSTREAM_ERROR = jsonResponse(500, {
-  data: null,
-  message: 'Internal server error',
-  error: null,
-});
+const FOOD_TOTALS = { entries: [], total_calories: 1800, total_protein_g: 90 };
+const EXERCISE_TOTALS = { entries: [], total_calories_burned: 300, total_duration_min: 30 };
 
 describe('getDashboard', () => {
-  let mockFetch: ReturnType<typeof vi.fn>;
-
   beforeEach(() => {
-    mockFetch = vi.fn();
-    vi.stubGlobal('fetch', mockFetch);
-  });
-
-  afterEach(() => {
-    vi.unstubAllGlobals();
+    mockGetProfile.mockReset();
+    mockGetFoodEntries.mockReset();
+    mockGetExerciseEntries.mockReset();
   });
 
   it('aggregates profile, food, and exercise totals into the dashboard shape', async () => {
-    mockFetch.mockImplementation((url: string) => {
-      if (url.includes('/profile')) return Promise.resolve(PROFILE_FOUND);
-      if (url.includes('/food/entries')) return Promise.resolve(FOOD_TOTALS);
-      if (url.includes('/exercise/entries')) return Promise.resolve(EXERCISE_TOTALS);
-      throw new Error(`Unexpected URL: ${url}`);
-    });
+    mockGetProfile.mockResolvedValue(PROFILE_FOUND);
+    mockGetFoodEntries.mockResolvedValue(FOOD_TOTALS);
+    mockGetExerciseEntries.mockResolvedValue(EXERCISE_TOTALS);
 
-    const result = await getDashboard(AUTH_HEADER, { date: '2026-06-10' });
+    const result = await getDashboard(USER_ID, { date: '2026-06-10' });
 
     expect(result).toEqual({
       date: '2026-06-10',
@@ -73,44 +59,26 @@ describe('getDashboard', () => {
   });
 
   it('computes negative net and remaining when burned exceeds consumed and target', async () => {
-    mockFetch.mockImplementation((url: string) => {
-      if (url.includes('/profile')) return Promise.resolve(PROFILE_FOUND);
-      if (url.includes('/food/entries')) {
-        return Promise.resolve(
-          jsonResponse(200, {
-            data: { entries: [], total_calories: 500, total_protein_g: 30 },
-            message: 'OK',
-            error: null,
-          })
-        );
-      }
-      if (url.includes('/exercise/entries')) {
-        return Promise.resolve(
-          jsonResponse(200, {
-            data: { entries: [], total_calories_burned: 3000, total_duration_min: 120 },
-            message: 'OK',
-            error: null,
-          })
-        );
-      }
-      throw new Error(`Unexpected URL: ${url}`);
+    mockGetProfile.mockResolvedValue(PROFILE_FOUND);
+    mockGetFoodEntries.mockResolvedValue({ entries: [], total_calories: 500, total_protein_g: 30 });
+    mockGetExerciseEntries.mockResolvedValue({
+      entries: [],
+      total_calories_burned: 3000,
+      total_duration_min: 120,
     });
 
-    const result = await getDashboard(AUTH_HEADER, { date: '2026-06-10' });
+    const result = await getDashboard(USER_ID, { date: '2026-06-10' });
 
     expect(result.calories.net).toBe(-2500);
     expect(result.calories.remaining).toBe(4700); // target (2200) - net (-2500)
   });
 
-  it('returns null bmr/tdee/target/remaining when the profile is not found (404)', async () => {
-    mockFetch.mockImplementation((url: string) => {
-      if (url.includes('/profile')) return Promise.resolve(PROFILE_NOT_FOUND);
-      if (url.includes('/food/entries')) return Promise.resolve(FOOD_TOTALS);
-      if (url.includes('/exercise/entries')) return Promise.resolve(EXERCISE_TOTALS);
-      throw new Error(`Unexpected URL: ${url}`);
-    });
+  it('returns null bmr/tdee/target/remaining when getProfile resolves null', async () => {
+    mockGetProfile.mockResolvedValue(null);
+    mockGetFoodEntries.mockResolvedValue(FOOD_TOTALS);
+    mockGetExerciseEntries.mockResolvedValue(EXERCISE_TOTALS);
 
-    const result = await getDashboard(AUTH_HEADER, { date: '2026-06-10' });
+    const result = await getDashboard(USER_ID, { date: '2026-06-10' });
 
     expect(result.bmr).toBeNull();
     expect(result.tdee).toBeNull();
@@ -123,106 +91,25 @@ describe('getDashboard', () => {
 
   it('defaults date to today when not provided', async () => {
     const today = new Date().toISOString().slice(0, 10);
-    const calledUrls: string[] = [];
+    mockGetProfile.mockResolvedValue(null);
+    mockGetFoodEntries.mockResolvedValue(FOOD_TOTALS);
+    mockGetExerciseEntries.mockResolvedValue(EXERCISE_TOTALS);
 
-    mockFetch.mockImplementation((url: string) => {
-      calledUrls.push(url);
-      if (url.includes('/profile')) return Promise.resolve(PROFILE_NOT_FOUND);
-      if (url.includes('/food/entries')) return Promise.resolve(FOOD_TOTALS);
-      return Promise.resolve(EXERCISE_TOTALS);
-    });
-
-    const result = await getDashboard(AUTH_HEADER, {});
+    const result = await getDashboard(USER_ID, {});
 
     expect(result.date).toBe(today);
-    expect(calledUrls.find((u) => u.includes('/food/entries'))).toContain(`date=${today}`);
-    expect(calledUrls.find((u) => u.includes('/exercise/entries'))).toContain(`date=${today}`);
+    expect(mockGetFoodEntries).toHaveBeenCalledWith(USER_ID, { date: today });
+    expect(mockGetExerciseEntries).toHaveBeenCalledWith(USER_ID, { date: today });
   });
 
   it('uses the provided date in food and exercise requests', async () => {
-    const calledUrls: string[] = [];
+    mockGetProfile.mockResolvedValue(null);
+    mockGetFoodEntries.mockResolvedValue(FOOD_TOTALS);
+    mockGetExerciseEntries.mockResolvedValue(EXERCISE_TOTALS);
 
-    mockFetch.mockImplementation((url: string) => {
-      calledUrls.push(url);
-      if (url.includes('/profile')) return Promise.resolve(PROFILE_NOT_FOUND);
-      if (url.includes('/food/entries')) return Promise.resolve(FOOD_TOTALS);
-      return Promise.resolve(EXERCISE_TOTALS);
-    });
+    await getDashboard(USER_ID, { date: '2026-01-02' });
 
-    await getDashboard(AUTH_HEADER, { date: '2026-01-02' });
-
-    expect(calledUrls.find((u) => u.includes('/food/entries'))).toContain('date=2026-01-02');
-    expect(calledUrls.find((u) => u.includes('/exercise/entries'))).toContain('date=2026-01-02');
-  });
-
-  it('forwards the Authorization header to all three internal requests', async () => {
-    const calledHeaders: Array<Record<string, string> | undefined> = [];
-
-    mockFetch.mockImplementation((url: string, init?: RequestInit) => {
-      calledHeaders.push(init?.headers as Record<string, string> | undefined);
-      if (url.includes('/profile')) return Promise.resolve(PROFILE_NOT_FOUND);
-      if (url.includes('/food/entries')) return Promise.resolve(FOOD_TOTALS);
-      return Promise.resolve(EXERCISE_TOTALS);
-    });
-
-    await getDashboard(AUTH_HEADER, { date: '2026-06-10' });
-
-    expect(mockFetch).toHaveBeenCalledTimes(3);
-    for (const headers of calledHeaders) {
-      expect(headers).toMatchObject({ Authorization: AUTH_HEADER });
-    }
-  });
-
-  describe('upstream errors', () => {
-    it('throws a 502 AppError when the profile endpoint returns a non-ok, non-404 status', async () => {
-      mockFetch.mockImplementation((url: string) => {
-        if (url.includes('/profile')) return Promise.resolve(UPSTREAM_ERROR);
-        if (url.includes('/food/entries')) return Promise.resolve(FOOD_TOTALS);
-        return Promise.resolve(EXERCISE_TOTALS);
-      });
-
-      await expect(getDashboard(AUTH_HEADER, { date: '2026-06-10' })).rejects.toMatchObject({
-        status: 502,
-        message: 'Failed to fetch profile data',
-      });
-    });
-
-    it('throws a 502 AppError when the food endpoint returns a non-ok, non-404 status', async () => {
-      mockFetch.mockImplementation((url: string) => {
-        if (url.includes('/profile')) return Promise.resolve(PROFILE_NOT_FOUND);
-        if (url.includes('/food/entries')) return Promise.resolve(UPSTREAM_ERROR);
-        return Promise.resolve(EXERCISE_TOTALS);
-      });
-
-      await expect(getDashboard(AUTH_HEADER, { date: '2026-06-10' })).rejects.toMatchObject({
-        status: 502,
-        message: 'Failed to fetch food data',
-      });
-    });
-
-    it('throws a 502 AppError when the exercise endpoint returns a non-ok, non-404 status', async () => {
-      mockFetch.mockImplementation((url: string) => {
-        if (url.includes('/profile')) return Promise.resolve(PROFILE_NOT_FOUND);
-        if (url.includes('/food/entries')) return Promise.resolve(FOOD_TOTALS);
-        return Promise.resolve(UPSTREAM_ERROR);
-      });
-
-      await expect(getDashboard(AUTH_HEADER, { date: '2026-06-10' })).rejects.toMatchObject({
-        status: 502,
-        message: 'Failed to fetch exercise data',
-      });
-    });
-
-    it('rejects when an internal fetch call itself fails (e.g. connection refused)', async () => {
-      mockFetch.mockImplementation((url: string) => {
-        if (url.includes('/profile')) return Promise.resolve(PROFILE_NOT_FOUND);
-        if (url.includes('/food/entries')) return Promise.reject(new TypeError('fetch failed'));
-        return Promise.resolve(EXERCISE_TOTALS);
-      });
-
-      await expect(getDashboard(AUTH_HEADER, { date: '2026-06-10' })).rejects.toThrow(
-        'fetch failed'
-      );
-    });
+    expect(mockGetFoodEntries).toHaveBeenCalledWith(USER_ID, { date: '2026-01-02' });
+    expect(mockGetExerciseEntries).toHaveBeenCalledWith(USER_ID, { date: '2026-01-02' });
   });
 });

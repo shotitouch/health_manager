@@ -28,31 +28,39 @@ function apiResponse(content: object[], stopReason = 'end_turn') {
   };
 }
 
+// Pure navigation → only domain is "navigation" → Worker is skipped.
 const ROUTER_SKIP_WORKER = apiResponse(
   [
     {
       type: 'tool_use',
       id: 'tu_r1',
       name: 'classify_intent',
-      input: { intent: 'navigate', hasImage: false, skipWorker: true },
+      input: { intent_summary: 'Show the dashboard', domains: ['navigation'], has_image: false },
     },
   ],
   'tool_use'
 );
 
+// Food logging → "food" domain → Worker runs.
 const ROUTER_NEEDS_WORKER = apiResponse(
   [
     {
       type: 'tool_use',
       id: 'tu_r2',
       name: 'classify_intent',
-      input: { intent: 'log_food', hasImage: false, skipWorker: false },
+      input: { intent_summary: 'Log the rice the user ate', domains: ['food'], has_image: false },
     },
   ],
   'tool_use'
 );
 
 const WORKER_END_TURN = apiResponse([{ type: 'text', text: 'Data processed.' }], 'end_turn');
+
+// Worker turn cut off by the output cap — a non-end_turn terminal stop reason.
+const WORKER_MAX_TOKENS = apiResponse([{ type: 'text', text: 'Partial synth' }], 'max_tokens');
+
+// Worker turn declined by safety classifiers.
+const WORKER_REFUSAL = apiResponse([], 'refusal');
 
 const WORKER_LOOPS_GET_USER_LOG = apiResponse(
   [{ type: 'tool_use', id: 'tu_w_stub', name: 'get_user_log', input: {} }],
@@ -158,6 +166,58 @@ describe('runAgentLoop', () => {
 
       expect(result.feToolCalls[0].name).toBe('show_food_input');
     });
+
+    it('ends the presenter input with a user turn so Anthropic accepts it (routing context, with the handoff just before)', async () => {
+      // mock.calls stores a live array reference that runPresenterLoop mutates after
+      // the call (it pushes its own response + tool_result ack). Snapshot at call
+      // time so we assert on what was actually sent, not the post-mutation state.
+      let presenterMessagesSnapshot: Array<{ role: string; content: unknown }> = [];
+      mockMessagesCreate
+        .mockResolvedValueOnce(ROUTER_NEEDS_WORKER)
+        .mockResolvedValueOnce(WORKER_END_TURN)
+        .mockImplementationOnce(
+          async (args: { messages: Array<{ role: string; content: unknown }> }) => {
+            presenterMessagesSnapshot = JSON.parse(JSON.stringify(args.messages));
+            return PRESENTER_SHOW_FOOD_INPUT;
+          }
+        );
+
+      await runAgentLoop(USER_MESSAGES, 'user-1');
+
+      // Trailing turn is the injected routing context — still a user turn.
+      const last = presenterMessagesSnapshot[presenterMessagesSnapshot.length - 1];
+      expect(last.role).toBe('user');
+      expect(JSON.stringify(last.content)).toContain('routing_context');
+      // The worker→presenter handoff sits just before it.
+      const handoff = presenterMessagesSnapshot[presenterMessagesSnapshot.length - 2];
+      expect(JSON.stringify(handoff.content)).toContain('Worker findings are above');
+    });
+
+    it('passes only original messages + Worker synthesis + handoff + routing context to Presenter, not intermediate tool calls', async () => {
+      let presenterSnapshot: Array<{ role: string; content: unknown }> = [];
+      mockMessagesCreate
+        .mockResolvedValueOnce(ROUTER_NEEDS_WORKER)
+        .mockResolvedValueOnce(WORKER_LOOPS_GET_USER_LOG) // worker call 1: tool_use
+        .mockResolvedValueOnce(WORKER_END_TURN) // worker call 2: finishes
+        .mockImplementationOnce(
+          async (args: { messages: Array<{ role: string; content: unknown }> }) => {
+            presenterSnapshot = JSON.parse(JSON.stringify(args.messages));
+            return PRESENTER_SHOW_FOOD_INPUT;
+          }
+        );
+
+      await runAgentLoop(USER_MESSAGES, 'user-1');
+
+      // original user msg + Worker synthesis + handoff + injected routing context = 4 messages
+      expect(presenterSnapshot).toHaveLength(4);
+      // no intermediate tool_result turns in Presenter context
+      const hasToolResult = presenterSnapshot.some(
+        (m) =>
+          Array.isArray(m.content) &&
+          (m.content as Array<{ type: string }>).some((b) => b.type === 'tool_result')
+      );
+      expect(hasToolResult).toBe(false);
+    });
   });
 
   describe('worker loop cap', () => {
@@ -181,6 +241,38 @@ describe('runAgentLoop', () => {
     });
   });
 
+  describe('worker termination guard', () => {
+    it('throws when the worker stops with max_tokens (truncated synthesis)', async () => {
+      mockMessagesCreate
+        .mockResolvedValueOnce(ROUTER_NEEDS_WORKER)
+        .mockResolvedValueOnce(WORKER_MAX_TOKENS);
+
+      await expect(runAgentLoop(USER_MESSAGES, 'user-1')).rejects.toThrow(
+        'Worker did not complete cleanly (stop_reason: max_tokens)'
+      );
+    });
+
+    it('throws when the worker stops with refusal', async () => {
+      mockMessagesCreate
+        .mockResolvedValueOnce(ROUTER_NEEDS_WORKER)
+        .mockResolvedValueOnce(WORKER_REFUSAL);
+
+      await expect(runAgentLoop(USER_MESSAGES, 'user-1')).rejects.toThrow(
+        'Worker did not complete cleanly (stop_reason: refusal)'
+      );
+    });
+
+    it('does not call the presenter when the worker terminates abnormally (router + worker only)', async () => {
+      mockMessagesCreate
+        .mockResolvedValueOnce(ROUTER_NEEDS_WORKER)
+        .mockResolvedValueOnce(WORKER_MAX_TOKENS);
+
+      await expect(runAgentLoop(USER_MESSAGES, 'user-1')).rejects.toThrow();
+
+      expect(mockMessagesCreate).toHaveBeenCalledTimes(2);
+    });
+  });
+
   describe('MCP execution — stub DB tools', () => {
     it('includes stub tool_result in messages passed to subsequent worker call', async () => {
       mockMessagesCreate
@@ -194,7 +286,11 @@ describe('runAgentLoop', () => {
       // calls[2] is the second worker call — check its messages contain the stub tool_result.
       const secondWorkerArgs = mockMessagesCreate.mock.calls[2][0];
       const messages = secondWorkerArgs.messages as Array<{ role: string; content: unknown }>;
-      const toolResultMsg = messages.find((m) => m.role === 'user' && Array.isArray(m.content));
+      const toolResultMsg = messages.find(
+        (m) =>
+          Array.isArray(m.content) &&
+          (m.content as Array<{ type: string }>).some((b) => b.type === 'tool_result')
+      );
       expect(toolResultMsg).toBeDefined();
       const content = toolResultMsg!.content as Array<{ content?: string }>;
       expect(content[0].content).toContain('stub');
@@ -248,7 +344,11 @@ describe('runAgentLoop', () => {
 
       const secondWorkerArgs = mockMessagesCreate.mock.calls[2][0];
       const messages = secondWorkerArgs.messages as Array<{ role: string; content: unknown }>;
-      const toolResultMsg = messages.find((m) => m.role === 'user' && Array.isArray(m.content));
+      const toolResultMsg = messages.find(
+        (m) =>
+          Array.isArray(m.content) &&
+          (m.content as Array<{ type: string }>).some((b) => b.type === 'tool_result')
+      );
       const content = toolResultMsg!.content as Array<{ content?: string }>;
       expect(content[0].content).toContain('USDA_API_KEY not set');
     });
@@ -278,7 +378,11 @@ describe('runAgentLoop', () => {
 
       const secondWorkerArgs = mockMessagesCreate.mock.calls[2][0];
       const messages = secondWorkerArgs.messages as Array<{ role: string; content: unknown }>;
-      const toolResultMsg = messages.find((m) => m.role === 'user' && Array.isArray(m.content));
+      const toolResultMsg = messages.find(
+        (m) =>
+          Array.isArray(m.content) &&
+          (m.content as Array<{ type: string }>).some((b) => b.type === 'tool_result')
+      );
       const raw = toolResultMsg!.content as Array<{ content?: string }>;
       const parsed = JSON.parse(raw[0].content!);
       // Non-ASCII stripped: ™ and ® should not appear
