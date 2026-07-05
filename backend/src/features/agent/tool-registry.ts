@@ -125,7 +125,7 @@ export const FE_TOOLS: Anthropic.Tool[] = [
   },
 ];
 
-// MCP tools — executed server-side by executeMcpTool in agent.service.ts.
+// MCP tools — executed server-side by executeMcpTool in mcp-executor.ts.
 // Never add entries at runtime or from user input.
 export const MCP_TOOLS: Anthropic.Tool[] = [
   // --- Nutrition lookup chain (try in order until a result is found) ---

@@ -30,7 +30,9 @@ src/
     agent/              # LLM orchestration — the core of the system (see its CLAUDE.md)
       agent.router.ts
       agent.controller.ts
-      agent.service.ts  # Calls Anthropic SDK, enforces tool-registry
+      agent.service.ts  # 3-tier pipeline: Router → Worker → Presenter orchestrator
+      prompts.ts        # Static system-prompt blocks + worker→presenter handoff
+      mcp-executor.ts   # executeMcpTool — MCP input validation + external integrations
       tool-registry.ts  # MASTER LIST of allowed tools (FE + MCP)
     auth/               # JWT register/login/refresh/logout
     profile/            # BMR, TDEE calculations
